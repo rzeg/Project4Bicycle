@@ -13,6 +13,7 @@ namespace Project4Bicycle
         {
             // The root page of your application
             MainPage = new NavigationPage(new MainMenu());
+            
         }
 
         protected override void OnStart()
