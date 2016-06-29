@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
+using Xamarin.Forms.Maps;
 
 namespace Project4Bicycle
 {
@@ -54,14 +55,14 @@ namespace Project4Bicycle
 						{
 
 
-							//var position = new Position(latitude, longtitude);
-							//var pin = new Pin
-							//{
-							//	Type = PinType.Place,
-							//	Position = position,
-							//	Label = description,
-							//	Address = street
-							//};
+							var position = new Position(latitude, longtitude);
+							var pin = new Pin
+							{
+								Type = PinType.Place,
+								Position = position,
+								Label = description,
+								Address = street
+							};
 
 
 							BikeContainer bikeContainer = new BikeContainer();
