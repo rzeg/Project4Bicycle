@@ -149,6 +149,12 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Xamarin.iOS" />
+    <Reference Include="Xamarin.Forms.Maps.iOS">
+      <HintPath>..\..\packages\Xamarin.Forms.Maps.2.3.0.107\lib\Xamarin.iOS10\Xamarin.Forms.Maps.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Maps">
+      <HintPath>..\..\packages\Xamarin.Forms.Maps.2.3.0.107\lib\Xamarin.iOS10\Xamarin.Forms.Maps.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Project4Bicycle\Project4Bicycle.csproj">
