@@ -20,7 +20,7 @@ namespace Project4Bicycle
                     Children = {
                         new Label {
                             HorizontalTextAlignment = TextAlignment.Center,
-                            Text = "Welcome to Xamarin Forms!"
+                            Text = "Welcome to Xamarin Forms! by Daan :D"
                         }
                     }
                 }
