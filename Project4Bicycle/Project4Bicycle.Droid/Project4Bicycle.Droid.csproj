@@ -54,6 +54,10 @@
     </Reference>
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
+    <Reference Include="Syncfusion.SfChart.Android, Version=14.2451.0.26, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Syncfusion.Xamarin.SfChart.Android.14.2.0.26\lib\MonoAndroid10\Syncfusion.SfChart.Android.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.ObjectModel" />
