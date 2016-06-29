@@ -20,20 +20,15 @@ namespace Project4Bicycle
             Button saveCurrentLocationButton = new Button { Text = "Save current location of bike" };
             Button createAppointmentButton = new Button { Text = "Create appointment in agenda" };
 
-<<<<<<< HEAD
+
 			mostContainersButton.Clicked += MostContainersButton_Clicked;
 			saveCurrentLocationButton.Clicked += SaveCurrentLocationButton_Clicked;
 
-
-
-
-
-=======
             mostContainersButton.Clicked += MostContainersButton_Clicked;
             stolenPerMonthButton.Clicked += StolenPerMonthButton_Clicked;
             groupedChartButton.Clicked += GroupedChartButton_Clicked;
             pieChartStolenBikesButton.Clicked += PieChartStolenBikesButton_Clicked;
->>>>>>> 6b5eb718045074f91748371641811c3fabc66454
+
             StackLayout sl = new StackLayout
             {
                 Children =

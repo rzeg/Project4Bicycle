@@ -13,10 +13,6 @@ namespace Project4Bicycle.Droid
 {
 	public class CalendarAPI : ICalendar
 	{
-		public CalendarAPI()
-		{
-		}
-
 		public void SetEvent(int alarm, int start, int length, string title, string note)
 		{
 			ContentValues eventValues = new ContentValues();
@@ -36,7 +32,7 @@ namespace Project4Bicycle.Droid
 
 		public void SetReminder(string title)
 		{
-			throw new NotImplementedException();
+			Console.WriteLine(title);
 		}
 
 		long GetDateTimeMS(int yr, int month, int day, int hr, int min)
