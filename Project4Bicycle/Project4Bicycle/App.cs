@@ -12,19 +12,7 @@ namespace Project4Bicycle
         public App()
         {
             // The root page of your application
-            MainPage = new ContentPage
-            {
-                Content = new StackLayout
-                {
-                    VerticalOptions = LayoutOptions.Center,
-                    Children = {
-                        new Label {
-                            HorizontalTextAlignment = TextAlignment.Center,
-                            Text = "Welcome to Xamarin Forms! by Daan :D"
-                        }
-                    }
-                }
-            };
+            MainPage = new NavigationPage(new MainMenu());
         }
 
         protected override void OnStart()
