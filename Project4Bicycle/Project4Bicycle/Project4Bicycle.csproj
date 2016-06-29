@@ -37,8 +37,11 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="ContainerOverviewPage.cs" />
+    <Compile Include="GroupedChartPage.cs" />
     <Compile Include="MainMenu.cs" />
+    <Compile Include="PieChartPage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StolenPerMonthPage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">

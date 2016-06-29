@@ -20,6 +20,9 @@ namespace Project4Bicycle
             Button createAppointmentButton = new Button { Text = "Create appointment in agenda" };
 
             mostContainersButton.Clicked += MostContainersButton_Clicked;
+            stolenPerMonthButton.Clicked += StolenPerMonthButton_Clicked;
+            groupedChartButton.Clicked += GroupedChartButton_Clicked;
+            pieChartStolenBikesButton.Clicked += PieChartStolenBikesButton_Clicked;
             StackLayout sl = new StackLayout
             {
                 Children =
@@ -34,6 +37,21 @@ namespace Project4Bicycle
             };
 
             this.Content = sl;
+        }
+
+        private async void PieChartStolenBikesButton_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new PieChartPage());
+        }
+
+        private async void GroupedChartButton_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new GroupedChartPage());
+        }
+
+        private async void StolenPerMonthButton_Clicked(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new StolenPerMonthPage());
         }
 
         async void MostContainersButton_Clicked(object sender, EventArgs e)
