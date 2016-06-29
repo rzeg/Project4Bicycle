@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Syncfusion.SfChart.XForms;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,11 @@ namespace Project4Bicycle
     {
         public ContainerOverviewPage()
         {
-
+            Title = "Overview";
+            SfChart chart = new SfChart();
+            CategoryAxis horizontalAxis = new CategoryAxis();
+            horizontalAxis.Title = new ChartAxisTitle { Text = "Neighbourhoods" };
+            chart.PrimaryAxis = horizontalAxis;
         }
     }
 }
