@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,7 +20,13 @@ namespace Project4Bicycle
             Button saveCurrentLocationButton = new Button { Text = "Save current location of bike" };
             Button createAppointmentButton = new Button { Text = "Create appointment in agenda" };
 
-            mostContainersButton.Clicked += MostContainersButton_Clicked;
+			mostContainersButton.Clicked += MostContainersButton_Clicked;
+			saveCurrentLocationButton.Clicked += SaveCurrentLocationButton_Clicked;
+
+
+
+
+
             StackLayout sl = new StackLayout
             {
                 Children =
@@ -40,5 +47,14 @@ namespace Project4Bicycle
         {
             await Navigation.PushAsync(new ContainerOverviewPage());
         }
+
+		async void SaveCurrentLocationButton_Clicked(object sender, EventArgs e)
+		{
+			ICalendar calendar = DependencyService.Get<ICalendar>();
+			calendar.SetEvent(10, 20, 30, "Hallo dit is een event", "we gaan schaatsen");
+			calendar.SetReminder("Vergeet niet je schaatsen mee te nemen");
+			calendar.SetReminder("Vergeet niet de fiets te maken");
+		}
+
     }
 }
