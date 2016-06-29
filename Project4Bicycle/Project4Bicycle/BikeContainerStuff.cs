@@ -11,7 +11,7 @@ namespace Project4Bicycle
 {
 
 	public class BikeContainerViewModel
-	{-
+	{
 		public ObservableCollection<BikeContainer> BikeContainers { get; } = new ObservableCollection<BikeContainer>();
 
 		public BikeContainerViewModel()
@@ -21,21 +21,21 @@ namespace Project4Bicycle
 
 		public async Task GetHaltesAsync()
 		{
-			RetDatabase database = new RetDatabase();
+			//RetDatabase database = new RetDatabase();
 
 			//			Reset database
 			//			database.Drop();
 
 
-			if (database.Count())
-			{
+			//if (database.Count())
+			//{
 				string requestUri = "http://puu.sh/pxxc2.csv";
 				var client = new HttpClient();
 				var responseStream = await client.GetStreamAsync(requestUri);
 				var reader = new StreamReader(responseStream);
 				bool first = true;
 
-				FindDuplicates dublicator = new FindDuplicates();
+				//FindDuplicates dublicator = new FindDuplicates();
 
 				while (!reader.EndOfStream)
 				{
@@ -81,21 +81,21 @@ namespace Project4Bicycle
 						first = false;
 					}
 				}
-			}
-			else {
-				foreach (var item in database.GetItems())
-				{
-					var position = new Position(item.Latitude, item.Longitude);
-					var pin = new Pin
-					{
-						Type = PinType.Place,
-						Position = position,
-						Label = item.Description,
-						Address = item.Name
-					};
-				}
+			//}
+			//else {
+			//	foreach (var item in database.GetItems())
+			//	{
+			//		var position = new Position(item.Latitude, item.Longitude);
+			//		var pin = new Pin
+			//		{
+			//			Type = PinType.Place,
+			//			Position = position,
+			//			Label = item.Description,
+			//			Address = item.Name
+			//		};
+			//	}
 				
-			}
+			//}
 		}
 	}
 }
