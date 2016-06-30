@@ -49,7 +49,6 @@
     <Compile Include="Pages\MainMenu.cs" />
     <Compile Include="Models\BikeContainer.cs" />
     <Compile Include="Pages\ShareLocationPage.cs" />
-    <Compile Include="ShareLocationPage.cs" />
     <Compile Include="Top5Generator.cs" />
   </ItemGroup>
   <ItemGroup>
