@@ -40,29 +40,28 @@ namespace Project4Bicycle
 				while (!reader.EndOfStream)
 				{
 					var line = reader.ReadLine();
-					var values = line.Split(';');
-
+					var values = line.Split(',');
 					if (!first)
 					{
 						string id = values[0];
 						string description = values[5]; //fietstrommel
 						string street = values[9];
-						double latitude = Convert.ToDouble(values[18]);
-						double longtitude = Convert.ToDouble(values[19]);
+						//double latitude = Convert.ToDouble(values[18]);
+						//double longtitude = Convert.ToDouble(values[19]);
 						string neighbourhood = values[28];
 
-						if (longtitude != 0f && latitude != 0f)
+						if (/*longtitude != 0f && latitude != 0f*/ true)
 						{
 
 
-							var position = new Position(latitude, longtitude);
-							var pin = new Pin
-							{
-								Type = PinType.Place,
-								Position = position,
-								Label = description,
-								Address = street
-							};
+							//var position = new Position(latitude, longtitude);
+							//var pin = new Pin
+							//{
+							//	Type = PinType.Place,
+							//	Position = position,
+							//	Label = description,
+							//	Address = street
+							//};
 
 
 							BikeContainer bikeContainer = new BikeContainer();
@@ -70,8 +69,8 @@ namespace Project4Bicycle
 							bikeContainer.Description = description;
 							bikeContainer.Street = street;
 							bikeContainer.Neighbourhood = neighbourhood;
-							bikeContainer.Latitude = latitude;
-							bikeContainer.Longitude = longtitude;
+							//bikeContainer.Latitude = latitude;
+							//bikeContainer.Longitude = longtitude;
 
 							//database.SaveItem(retItem);
 							BikeContainers.Add(bikeContainer);
