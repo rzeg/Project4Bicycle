@@ -45,6 +45,7 @@
     <Compile Include="Pages\StolenPerMonthPage.cs" />
     <Compile Include="Pages\MainMenu.cs" />
     <Compile Include="Models\BikeContainer.cs" />
+    <Compile Include="ShareLocationPage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Plugin.ExternalMaps, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">

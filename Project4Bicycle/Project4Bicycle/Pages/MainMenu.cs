@@ -64,10 +64,10 @@ namespace Project4Bicycle
 
 		async void SaveCurrentLocationButton_Clicked(object sender, EventArgs e)
 		{
-			ICalendar calendar = DependencyService.Get<ICalendar>();
-			calendar.SetEvent(10, 20, 30, "Hallo dit is een event", "we gaan schaatsen");
-			calendar.SetReminder("Vergeet niet je schaatsen mee te nemen");
-			calendar.SetReminder("Vergeet niet de fiets te maken");
+			await Navigation.PushAsync(new ShareLocationPage());
+			//ICalendar calendar = DependencyService.Get<ICalendar>();
+			//calendar.SetReminder("Vergeet niet je schaatsen mee te nemen");
+			//calendar.SetReminder("Vergeet niet de fiets te maken");
 		}
 
     }
