@@ -14,6 +14,7 @@ namespace Project4Bicycle
         HashSet<string> neighbourhoods = new HashSet<string>();
         List<Neighbourhood> realNeighbourhoods = new List<Neighbourhood>();
         public HashSet<string> Neighbourhoods { get { return neighbourhoods; } }
+
         public Top5Generator()
         {
         
@@ -35,7 +36,6 @@ namespace Project4Bicycle
                 Neighbourhood neighb = new Neighbourhood();
                 neighb.Name = nb;
                 realNeighbourhoods.Add(neighb);
-                bgm.AddData(neighb);
             }
             
             foreach(BikeContainer container in containers)
@@ -43,6 +43,12 @@ namespace Project4Bicycle
                Neighbourhood nb = realNeighbourhoods.Find(x => x.Name.Contains(container.Neighbourhood));
                nb.AddContainer(container);
             }
+
+            var r = realNeighbourhoods.OrderByDescending(x => x.BikeContainerCount).Take(5);
+
+            foreach (Neighbourhood nb in r)
+                bgm.AddData(nb);
+
             return bgm;
         }
     }
