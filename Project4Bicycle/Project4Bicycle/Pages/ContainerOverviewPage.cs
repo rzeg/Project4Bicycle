@@ -15,8 +15,12 @@ namespace Project4Bicycle
             Title = "Overview";
             SfChart chart = new SfChart();
             CategoryAxis horizontalAxis = new CategoryAxis();
+            NumericalAxis verticalAxis = new NumericalAxis();
+            verticalAxis.Title = new ChartAxisTitle { Text = "#Bike containers" };
             horizontalAxis.Title = new ChartAxisTitle { Text = "Neighbourhoods" };
             chart.PrimaryAxis = horizontalAxis;
+            chart.SecondaryAxis = verticalAxis;
+
         }
     }
 }
