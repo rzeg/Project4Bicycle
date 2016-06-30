@@ -13,14 +13,14 @@ namespace Project4Bicycle.Droid
 {
 	public class CalendarAPI : ICalendar
 	{
-		public void SetEvent(int alarm, int start, int length, string title, string note)
+		public void SetEvent(DateTime date, string title, string note)
 		{
 			ContentValues eventValues = new ContentValues();
 			eventValues.Put(CalendarContract.Events.InterfaceConsts.CalendarId, 1);
-			eventValues.Put(CalendarContract.Events.InterfaceConsts.Title, "Test Event from M4A");
-			eventValues.Put(CalendarContract.Events.InterfaceConsts.Description, "This is an event created from Xamarin.Android");
-			eventValues.Put(CalendarContract.Events.InterfaceConsts.Dtstart, GetDateTimeMS(2011, 12, 15, 10, 0));
-			eventValues.Put(CalendarContract.Events.InterfaceConsts.Dtend, GetDateTimeMS(2011, 12, 15, 11, 0));
+			eventValues.Put(CalendarContract.Events.InterfaceConsts.Title, title);
+			eventValues.Put(CalendarContract.Events.InterfaceConsts.Description, note);
+			eventValues.Put(CalendarContract.Events.InterfaceConsts.Dtstart, GetDateTimeMS(date.Year, date.Month, date.Day, date.Hour, date.Minute));
+			eventValues.Put(CalendarContract.Events.InterfaceConsts.Dtend, GetDateTimeMS(date.Year, date.Month, date.Day, date.Hour, date.AddMinutes(30).Minute));
 
 			eventValues.Put(CalendarContract.Events.InterfaceConsts.EventTimezone, "UTC");
 			eventValues.Put(CalendarContract.Events.InterfaceConsts.EventEndTimezone, "UTC");
@@ -39,11 +39,11 @@ namespace Project4Bicycle.Droid
 		{
 			Calendar c = Calendar.GetInstance(Java.Util.TimeZone.Default);
 
-			c.Set(Calendar.DayOfMonth, 22);
-			c.Set(Calendar.HourOfDay, 11);
-			c.Set(Calendar.Minute, 00);
-			c.Set(Calendar.Month, Calendar.June);
-			c.Set(Calendar.Year, 2016);
+			c.Set(Calendar.DayOfMonth, day);
+			c.Set(Calendar.HourOfDay, hr);
+			c.Set(Calendar.Minute, min);
+			c.Set(Calendar.Month, month);
+			c.Set(Calendar.Year, yr);
 
 			return c.TimeInMillis;
 		}

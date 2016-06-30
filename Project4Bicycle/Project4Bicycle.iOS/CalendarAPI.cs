@@ -14,7 +14,7 @@ namespace Project4Bicycle.iOS
 		public EKEventStore eventStore { get; set; }
 		private bool accessGranted = false;
 
-		public void SetEvent(int alarm, int start, int length, string title, string note)
+		public void SetEvent(DateTime date, string title, string note)
 		{
 			if (eventStore == null)
 			{
@@ -25,13 +25,15 @@ namespace Project4Bicycle.iOS
 			eventController.EventStore = eventStore;
 
 
+			NSDate date2 = DateTimeToNSDate2(date);
 
 			EKEvent newEvent = EKEvent.FromStore(eventController.EventStore);
 			// set the alarm for 10 minutes from now
-			newEvent.AddAlarm(EKAlarm.FromDate((Foundation.NSDate)DateTime.Now.AddMinutes(10)));
+
+			newEvent.AddAlarm(EKAlarm.FromDate(date2));
 			// make the event start 20 minutes from now and last 30 minutes
-			newEvent.StartDate = (Foundation.NSDate)DateTime.Now.AddMinutes(20);
-			newEvent.EndDate = (Foundation.NSDate)DateTime.Now.AddMinutes(50);
+			newEvent.StartDate = date2;
+			newEvent.EndDate = date2.AddSeconds(1800);
 			newEvent.Title = title;
 			newEvent.Notes = note;
 			newEvent.Calendar = eventController.EventStore.DefaultCalendarForNewEvents;
@@ -86,6 +88,14 @@ namespace Project4Bicycle.iOS
 						accessGranted = false;
 					}
 				});
+		}
+
+		public NSDate DateTimeToNSDate2(DateTime date)
+		{
+			DateTime reference = TimeZone.CurrentTimeZone.ToLocalTime(
+				new DateTime(2001, 1, 1, 0, 0, 0));
+			return NSDate.FromTimeIntervalSinceReferenceDate(
+				(date - reference).TotalSeconds);
 		}
 	}
 }
