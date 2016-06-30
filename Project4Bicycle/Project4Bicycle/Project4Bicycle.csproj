@@ -36,6 +36,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Models\BikeGraphModel.cs" />
+    <Compile Include="Models\GraphModel.cs" />
+    <Compile Include="Models\Neighbourhood.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ICalendar.cs" />
     <Compile Include="BikeContainerStuff.cs" />
@@ -46,6 +49,8 @@
     <Compile Include="Pages\MainMenu.cs" />
     <Compile Include="Models\BikeContainer.cs" />
     <Compile Include="Pages\ShareLocationPage.cs" />
+    <Compile Include="ShareLocationPage.cs" />
+    <Compile Include="Top5Generator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Plugin.Geolocator.Abstractions, Version=3.0.4.0, Culture=neutral, processorArchitecture=MSIL">
