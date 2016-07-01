@@ -42,7 +42,11 @@ namespace Project4Bicycle
             var r = realNeighbourhoods.OrderByDescending(x => x.BikeContainerCount).Take(5);
 
             foreach (Neighbourhood nb in r)
+            {
+                if(nb.Name.Length > 10)
+                    nb.Name = nb.Name.Substring(0, 10);
                 bgm.AddData(nb);
+            }
 
             return bgm;
         }
