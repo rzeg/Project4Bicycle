@@ -28,27 +28,25 @@ namespace Project4Bicycle
             ObservableCollection<BikeContainer> containers = vm.BikeContainers;
             foreach (BikeContainer container in containers)
             {
-                neighbourhoods.Add(container.Neighbourhood);
-            }
+                if(neighbourhoods.Add(container.Neighbourhood))
+                {
+                    Neighbourhood neighb = new Neighbourhood();
+                    neighb.Name = container.Neighbourhood;
+                    realNeighbourhoods.Add(neighb);
+                }
 
-            foreach(string nb in neighbourhoods)
-            {
-                Neighbourhood neighb = new Neighbourhood();
-                neighb.Name = nb;
-                realNeighbourhoods.Add(neighb);
-            }
-
-            
-            foreach(BikeContainer container in containers)
-            {
-               Neighbourhood nb = realNeighbourhoods.Find(x => x.Name.Contains(container.Neighbourhood));
-               nb.AddContainer(container);
+                Neighbourhood nb = realNeighbourhoods.Find(x => x.Name.Contains(container.Neighbourhood));
+                nb.AddContainer(container);
             }
 
             var r = realNeighbourhoods.OrderByDescending(x => x.BikeContainerCount).Take(5);
 
             foreach (Neighbourhood nb in r)
+            {
+                if(nb.Name.Length > 10)
+                    nb.Name = nb.Name.Substring(0, 10);
                 bgm.AddData(nb);
+            }
 
             return bgm;
         }

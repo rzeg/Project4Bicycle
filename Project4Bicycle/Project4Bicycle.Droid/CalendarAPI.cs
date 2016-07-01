@@ -53,8 +53,13 @@ namespace Project4Bicycle.Droid
 			//Console.WriteLine(cursor.GetString(2));
 			//Console.WriteLine(cursor.GetString(3));
 
+      var path = global::Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
+      var filename = System.IO.Path.Combine(path.ToString(), "myfile.txt");
 
-			Console.WriteLine(title);
+      using (var streamWriter = new System.IO.StreamWriter(filename, true))
+      {
+        streamWriter.WriteLine(title);
+      }
 		}
 
 		long GetDateTimeMS(int yr, int month, int day, int hr, int min)

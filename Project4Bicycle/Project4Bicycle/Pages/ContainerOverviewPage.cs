@@ -22,9 +22,8 @@ namespace Project4Bicycle
             horizontalAxis.Title = new ChartAxisTitle { Text = "Neighbourhoods" };
             chart.PrimaryAxis = horizontalAxis;
             chart.SecondaryAxis = verticalAxis;
-
+            chart.Title = new ChartTitle { Text = "Top 5 neighbourhoods with bike containers" };
             GenerateGraph();
-     
             this.Content = chart;
         }
 
@@ -37,6 +36,9 @@ namespace Project4Bicycle
                 ItemsSource = bg.model,
                 XBindingPath = "Name",
                 YBindingPath = "BikeContainerCount",
+                EnableAnimation = true,
+                AnimationDuration = 3.0,
+                EnableTooltip = true,
             });
         }
 
