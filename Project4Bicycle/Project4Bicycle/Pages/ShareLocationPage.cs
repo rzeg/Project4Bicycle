@@ -104,9 +104,9 @@ namespace Project4Bicycle
 
 			//#if __ANDROID__
 
-			//var locator1 = CrossGeolocator.Current;
-			//var position1 = await locator1.GetPositionAsync(timeoutMilliseconds: 10000);
-			//position = "Position Latitude: "+position1.Latitude+" Position Longitude: "+position1.Latitude;
+			var locator1 = CrossGeolocator.Current;
+			var position1 = await locator1.GetPositionAsync(timeoutMilliseconds: 10000);
+			position = "Position Latitude: "+position1.Latitude+" Position Longitude: "+position1.Latitude;
 
 			//#endif
 
