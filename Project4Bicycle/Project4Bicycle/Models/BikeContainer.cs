@@ -5,7 +5,7 @@ namespace Project4Bicycle
 {
 	public class BikeContainer
 	{
-		
+		public int Id { get; set; }
 		public string ID { get; set; }
 		public string Description { get; set; }
 		public string Street { get; set; }

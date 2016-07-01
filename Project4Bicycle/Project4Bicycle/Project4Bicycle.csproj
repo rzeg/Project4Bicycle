@@ -50,6 +50,13 @@
     <Compile Include="Models\BikeContainer.cs" />
     <Compile Include="Pages\ShareLocationPage.cs" />
     <Compile Include="Top5Generator.cs" />
+    <Compile Include="Data\BikeContainerDatabase.cs" />
+    <Compile Include="BrandColorGenerator.cs" />
+    <Compile Include="Models\BikeColorsGraphModel.cs" />
+    <Compile Include="Models\Color.cs" />
+    <Compile Include="BikeTheftViewModel.cs" />
+    <Compile Include="BikeTheft.cs" />
+    <Compile Include="BikeTheftFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Plugin.Geolocator.Abstractions, Version=3.0.4.0, Culture=neutral, processorArchitecture=MSIL">

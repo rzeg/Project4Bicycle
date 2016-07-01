@@ -5,7 +5,7 @@ using Android.Content;
 
 using Xamarin.Forms;
 using Java.Util;
-
+using Android.Net;
 
 [assembly: Dependency(typeof(Project4Bicycle.Droid.CalendarAPI))]
 
@@ -32,6 +32,28 @@ namespace Project4Bicycle.Droid
 
 		public void SetReminder(string title)
 		{
+			//var calendarsUri = CalendarContract.Calendars.ContentUri;
+
+			//string[] calendarsProjection = {
+			//	CalendarContract.Calendars.InterfaceConsts.Id,
+			//	CalendarContract.Calendars.InterfaceConsts.CalendarDisplayName,
+			//	CalendarContract.Calendars.InterfaceConsts.AccountName
+			//};
+
+			//var cursor = Forms.Context.ContentResolver.Query(calendarsUri, calendarsProjection, null, null, null);
+
+
+
+			//Console.WriteLine(cursor.MoveToFirst());
+			//Console.WriteLine(cursor.Count);
+			//Console.WriteLine(cursor.GetString(1));
+			//Console.WriteLine(cursor.GetString(2));
+			//Console.WriteLine(cursor.MoveToNext());
+			//Console.WriteLine(cursor.GetString(1));
+			//Console.WriteLine(cursor.GetString(2));
+			//Console.WriteLine(cursor.GetString(3));
+
+
 			Console.WriteLine(title);
 		}
 

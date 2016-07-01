@@ -5,6 +5,7 @@ using System.Linq;
 using Foundation;
 using UIKit;
 using Xamarin.Forms.Maps;
+using Syncfusion.SfChart.XForms.iOS.Renderers;
 
 namespace Project4Bicycle.iOS
 {
@@ -26,6 +27,7 @@ namespace Project4Bicycle.iOS
             global::Xamarin.Forms.Forms.Init();
             Xamarin.FormsMaps.Init();
             LoadApplication(new App());
+			new SfChartRenderer();
 
             return base.FinishedLaunching(app, options);
         }

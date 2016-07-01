@@ -45,7 +45,7 @@ namespace Project4Bicycle
 
 			Button reminderButton = new Button
 			{
-				Text = "Insert into calendar!",
+				Text = "Insert into reminder!",
 				Font = Font.SystemFontOfSize(NamedSize.Large),
 				BorderWidth = 1,
 				HorizontalOptions = LayoutOptions.Center,
@@ -69,6 +69,18 @@ namespace Project4Bicycle
 
 			timePicker = new TimePicker();
 
+			Picker picker = new Picker
+			{
+				Title = "Calendar",
+				VerticalOptions = LayoutOptions.CenterAndExpand
+			};
+
+			//foreach (string colorName in nameToColor.Keys)
+			//{
+			//	picker.Items.Add(colorName);
+			//}
+
+
 			Content = new StackLayout
 			{
 				Children = {
@@ -77,6 +89,7 @@ namespace Project4Bicycle
 					calendarButton,
 					reminderButton,
 					locationLabel,
+					picker,
 					datePicker,
 					timePicker
 				}
