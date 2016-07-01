@@ -67,7 +67,7 @@ namespace Project4Bicycle
 			ICalendar calendar = DependencyService.Get<ICalendar>();
 			calendar.SetEvent(10, 20, 30, "Hallo dit is een event", "we gaan schaatsen");
 			calendar.SetReminder("Vergeet niet je schaatsen mee te nemen");
-			calendar.SetReminder("Vergeet niet de fiets te maken");
+			//calendar.SetReminder("Vergeet niet de fiets te maken");
 		}
 
     }

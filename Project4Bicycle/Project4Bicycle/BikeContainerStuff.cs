@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using Xamarin.Forms.Maps;
+using System.Globalization;
 
 namespace Project4Bicycle
 {
@@ -40,29 +41,29 @@ namespace Project4Bicycle
 				while (!reader.EndOfStream)
 				{
 					var line = reader.ReadLine();
-					var values = line.Split(';');
-
+					var values = line.Split(',');
 					if (!first)
 					{
 						string id = values[0];
 						string description = values[5]; //fietstrommel
 						string street = values[9];
-						double latitude = Convert.ToDouble(values[18]);
-						double longtitude = Convert.ToDouble(values[19]);
+                        double latitude = 0.0;
+                        double longtitude = 0.0;
 						string neighbourhood = values[28];
+                        NumberStyles style = NumberStyles.AllowDecimalPoint;
 
-						if (longtitude != 0f && latitude != 0f)
+                        if (Double.TryParse(values[18], style, CultureInfo.InvariantCulture, out latitude) && Double.TryParse(values[19], style, CultureInfo.InvariantCulture, out longtitude))
 						{
 
 
-							var position = new Position(latitude, longtitude);
-							var pin = new Pin
-							{
-								Type = PinType.Place,
-								Position = position,
-								Label = description,
-								Address = street
-							};
+							//var position = new Position(latitude, longtitude);
+							//var pin = new Pin
+							//{
+							//	Type = PinType.Place,
+							//	Position = position,
+							//	Label = description,
+							//	Address = street
+							//};
 
 
 							BikeContainer bikeContainer = new BikeContainer();

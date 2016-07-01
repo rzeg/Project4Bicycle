@@ -32,7 +32,15 @@ namespace Project4Bicycle.Droid
 
 		public void SetReminder(string title)
 		{
-			Console.WriteLine(title);
+      var path = global::Android.OS.Environment.ExternalStorageDirectory.AbsolutePath;
+      var filename = System.IO.Path.Combine(path.ToString(), "myfile.txt");
+
+      using (var streamWriter = new System.IO.StreamWriter(filename, true))
+      {
+        streamWriter.WriteLine(title);
+      }
+
+      //Console.WriteLine(title);
 		}
 
 		long GetDateTimeMS(int yr, int month, int day, int hr, int min)
