@@ -55,12 +55,6 @@ namespace Project4Bicycle
                     var line = reader.ReadLine();
                     string[] values = new string[] { };
                     string[] tempIncidentDate = { };
-                    //if (values.Count<string>() <= 1 && line.Length > 150)
-                    //{
-                    //    //The CSV file is somehow different from line 5040, it gets seperated with '\t'
-                    //    values = line.Split('\t');
-                    //    tempIncidentDate = values[11].Split('-');
-                    //}
                     if (!skipRow && line.Length > 150 && (line.Contains("\t") || line.Contains(",")))
                     {
                         //Some lines are seperated with tabs but somehow also have 1 comma, we look for at least 3 comma's to avoid this problem.
@@ -154,7 +148,7 @@ namespace Project4Bicycle
         {
             HighTemperature = new ObservableCollection<ChartDataPoint>();
             incidentMonthList = new List<string>();
-            months = new string[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec" };
+            months = new string[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
             monthThefts = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
             FillData();
