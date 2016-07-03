@@ -99,7 +99,7 @@ namespace Project4Bicycle
 		async void OnButtonClicked(object sender, EventArgs e)
 		{
 			
-			position = "213156785432";
+			//position = "213156785432";
 
 
 			//#if __ANDROID__
