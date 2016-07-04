@@ -58,7 +58,8 @@ namespace Project4Bicycle
 
             if (values[11] != "")
             {
-                bikeTheft.Month = Convert.ToDateTime(values[11]).Month;//Int32.Parse(values[11].Split('/')[1]);
+				//bikeTheft.Month = Convert.ToDateTime(values[11]).Month;//Int32.Parse(values[11].Split('/')[1]);
+                bikeTheft.Month = Int32.Parse(values[11].Split('/')[1]);
             }
                 		
 			bikeTheft.Keyword = values[20];

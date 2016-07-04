@@ -50,8 +50,9 @@ namespace Project4Bicycle
                         double latitude = 0.0;
                         double longtitude = 0.0;
 						string neighbourhood = values[28];
-                        DateTime dt = Convert.ToDateTime(values[32]);
-                        int month = dt.Month;
+					//Debug.WriteLine(values[32]);
+                        //DateTime dt = Convert.ToDateTime(values[32]);
+					    int month = Int32.Parse(values[32].Split('-')[1]);
                         NumberStyles style = NumberStyles.AllowDecimalPoint;
 
                         if (Double.TryParse(values[18], style, CultureInfo.InvariantCulture, out latitude) && Double.TryParse(values[19], style, CultureInfo.InvariantCulture, out longtitude))
