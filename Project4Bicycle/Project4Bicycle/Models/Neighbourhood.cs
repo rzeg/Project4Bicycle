@@ -10,6 +10,7 @@ namespace Project4Bicycle.Models
     {
         public List<BikeContainer> BikeContainers = new List<BikeContainer>();
         public string Name { get; set; }
+        
         public int BikeContainerCount { get { return BikeContainers.Count; } }
 
         public void AddContainer(BikeContainer container)
