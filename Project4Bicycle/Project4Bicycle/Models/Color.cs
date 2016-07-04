@@ -8,7 +8,7 @@ namespace Project4Bicycle
 	{
 		public List<string> BikeColors = new List<string>();
 		public string Name { get; set; }
-		public int BikeContainerCount { get { return BikeColors.Count; } }
+		public int Count { get { return BikeColors.Count; } }
 
 		public void AddColor(string color)
 		{

@@ -9,43 +9,24 @@ using Xamarin.Forms;
 
 namespace Project4Bicycle
 {
-    class PieChartPage : ContentPage
+	class PieChartPage : TabbedPage
 	{
-		SfChart chart = new SfChart();
+		//SfChart colorChart = new SfChart();
+		//SfChart brandChart = new SfChart();
 
         public PieChartPage()
         {
-			Title = "Overview";
+			var navigationPageBrands = new BrandPieChartPage();
+			navigationPageBrands.Title = "Brands";
 
-			chart.Title = new ChartTitle { Text = "Top 5 neighbourhoods with bike containers" };
+			var navigationPageColors = new ColorPieChartPage();
+			navigationPageColors.Title = "Colors";
+				
+			Children.Add(navigationPageBrands);
+			Children.Add(navigationPageColors);
 
-			GenerateGraph();
 
-			this.Content = chart;
+
         }
-
-		public async void GenerateGraph()
-		{
-			BrandColorGenerator generator = new BrandColorGenerator();
-			BikeColorsGraphModel bg = await generator.GenerateColors();
-
-			chart.Legend = new ChartLegend();
-
-			chart.Legend.Title.Text = "Colors";
-
-			chart.Series.Add(new PieSeries()
-			{
-				ItemsSource = bg.model,
-				XBindingPath = "Name",
-				YBindingPath = "BikeContainerCount",
-				EnableTooltip = true,
-				EnableSmartLabels = true,
-				DataMarkerPosition = CircularSeriesDataMarkerPosition.OutsideExtended,
-				ConnectorLineType = ConnectorLineType.Bezier,
-				StartAngle = 75,
-				EndAngle = 435,
-				DataMarker = new ChartDataMarker(),
-			});
-		}
     }
 }

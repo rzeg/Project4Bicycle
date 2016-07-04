@@ -42,6 +42,7 @@
     <Compile Include="Models\Neighbourhood.cs" />
     <Compile Include="Models\Q3Model.cs" />
     <Compile Include="Models\StackedData.cs" />
+    <Compile Include="Pages\SplashScreen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ICalendar.cs" />
     <Compile Include="BikeContainerStuff.cs" />
@@ -61,6 +62,10 @@
     <Compile Include="BikeTheftViewModel.cs" />
     <Compile Include="BikeTheft.cs" />
     <Compile Include="BikeTheftFactory.cs" />
+    <Compile Include="Models\BikeBrandsGraphModel.cs" />
+    <Compile Include="Models\Brand.cs" />
+    <Compile Include="Pages\BrandPieChartPage.cs" />
+    <Compile Include="Pages\ColorPieChartPage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Plugin.Geolocator.Abstractions, Version=3.0.4.0, Culture=neutral, processorArchitecture=MSIL">
