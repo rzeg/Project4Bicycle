@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project4Bicycle.Windows", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project4Bicycle", "Project4Bicycle\Project4Bicycle\Project4Bicycle.csproj", "{C324AB43-8D47-4E40-9FE9-83D53565AAD9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApplication1", "..\NewRepo\WindowsFormsApplication1\WindowsFormsApplication1\WindowsFormsApplication1.csproj", "{DA910456-4C86-4C3E-B3CB-489AFBB774F6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApplication1", "Project4Bicycle\WindowsFormsApplication1\WindowsFormsApplication1.csproj", "{DA910456-4C86-4C3E-B3CB-489AFBB774F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
