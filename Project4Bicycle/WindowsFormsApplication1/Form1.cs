@@ -35,10 +35,14 @@ namespace WindowsFormsApplication1
         {
             InitializeComponent();
             chart2.Name = "Waste";
-            chart2.Series.Add("Rest");
             chart2.Series[0].Points.DataBindXY(exes, whys);
-            chart2.Series[0].Name = "Containers";
+            chart2.Series[0].Name = "Capelle";
+            chart2.Series.Add("Spangen");
             chart2.Series[1].Points.DataBindXY(exes, whys);
+            chart2.Series.Add("Feyenoord");
+            chart2.Series[2].Points.DataBindXY(exes, whys);
+            chart2.Series.Add("Blijdorp");
+            chart2.Series[3].Points.DataBindXY(exes, whys);
             chart2.Hide();
             chart1.Hide();
 
