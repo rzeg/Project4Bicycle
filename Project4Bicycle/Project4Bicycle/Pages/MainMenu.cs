@@ -10,6 +10,7 @@ namespace Project4Bicycle
 {
     class MainMenu : ContentPage
     {
+        StolenPerMonthPage SPMP;
         public MainMenu()
         {
             Title = "Main menu";
@@ -19,8 +20,9 @@ namespace Project4Bicycle
             Button pieChartStolenBikesButton = new Button { Text = "Most stolen bikes and colors" };
             Button saveCurrentLocationButton = new Button { Text = "Save current location of bike" };
             Button createAppointmentButton = new Button { Text = "Create appointment in agenda" };
+            SPMP = new StolenPerMonthPage();
 
-			saveCurrentLocationButton.Clicked += SaveCurrentLocationButton_Clicked;
+            saveCurrentLocationButton.Clicked += SaveCurrentLocationButton_Clicked;
             mostContainersButton.Clicked += MostContainersButton_Clicked;
             stolenPerMonthButton.Clicked += StolenPerMonthButton_Clicked;
             groupedChartButton.Clicked += GroupedChartButton_Clicked;
@@ -54,7 +56,7 @@ namespace Project4Bicycle
 
         private async void StolenPerMonthButton_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new StolenPerMonthPage());
+            await Navigation.PushAsync(SPMP);
         }
 
         async void MostContainersButton_Clicked(object sender, EventArgs e)
