@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project4Bicycle.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,22 +9,24 @@ using Xamarin.Forms;
 
 namespace Project4Bicycle
 {
-    class PieChartPage : ContentPage
+	class PieChartPage : TabbedPage
 	{
-		SfChart chart = new SfChart();
+		//SfChart colorChart = new SfChart();
+		//SfChart brandChart = new SfChart();
 
         public PieChartPage()
         {
-			Title = "Colors / Brands";
+			var navigationPageBrands = new BrandPieChartPage();
+			navigationPageBrands.Title = "Brands";
+
+			var navigationPageColors = new ColorPieChartPage();
+			navigationPageColors.Title = "Colors";
+				
+			Children.Add(navigationPageBrands);
+			Children.Add(navigationPageColors);
 
 
-			this.Content = chart;
+
         }
-
-
-		public async void GenerateGraph()
-		{
-			BrandColorGenerator generator = new BrandColorGenerator();
-		}
     }
 }

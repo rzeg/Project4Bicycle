@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project4Bicycle.Models;
+using System;
 using System.Collections.ObjectModel;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -6,12 +7,18 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using Xamarin.Forms.Maps;
+using System.Collections.Generic;
 
 namespace Project4Bicycle
 {
 	public class BikeTheftViewModel
 	{
 		public ObservableCollection<BikeTheft> BikeThefts { get; } = new ObservableCollection<BikeTheft>();
+		public ObservableCollection<string> brands { get; } = new ObservableCollection<string>();
+		public ObservableCollection<string> colors { get; } = new ObservableCollection<string>();
+
+		HashSet<string> brandsHash = new HashSet<string>();
+		HashSet<string> colorsHash = new HashSet<string>();
 
 		public async Task GetBikeTheftsAsync()
 		{
@@ -19,30 +26,27 @@ namespace Project4Bicycle
 			var client = new HttpClient();
 			var responseStream = await client.GetStreamAsync(requestUri);
 			var reader = new StreamReader(responseStream);
-			bool first = true;
-
-			double latitude = 0f;
-			double longtitude = 0f;
 
 			BikeTheftFactory factory = new BikeTheftFactory(reader);
+			BikeTheft bikeTheft;
 
+			while (factory.HasNext())
+			{
+				bikeTheft = factory.GetCurrent();
+				brandsHash.Add(bikeTheft.Brand);
+				colorsHash.Add(bikeTheft.Color);
+				BikeThefts.Add(bikeTheft);
+			}
 
+			foreach (var color in colorsHash)
+			{
+				colors.Add(color);
+			}			
 
-
-			//while (!reader.EndOfStream)
-			//{
-			//	var line = reader.ReadLine();
-			//	var values = line.Split(',');
-
-			//	if (!first)
-			//	{
-
-			//	}
-			//	else {
-			//		first = false;
-			//	}
-			//}
-
+			foreach (var brand in brandsHash)
+			{
+				brands.Add(brand);
+			}
 		}
 	}
 }
