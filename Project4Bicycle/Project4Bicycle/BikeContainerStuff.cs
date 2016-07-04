@@ -50,6 +50,8 @@ namespace Project4Bicycle
                         double latitude = 0.0;
                         double longtitude = 0.0;
 						string neighbourhood = values[28];
+                        DateTime dt = Convert.ToDateTime(values[32]);
+                        int month = dt.Month;
                         NumberStyles style = NumberStyles.AllowDecimalPoint;
 
                         if (Double.TryParse(values[18], style, CultureInfo.InvariantCulture, out latitude) && Double.TryParse(values[19], style, CultureInfo.InvariantCulture, out longtitude))
@@ -73,7 +75,7 @@ namespace Project4Bicycle
 							bikeContainer.Neighbourhood = neighbourhood;
 							bikeContainer.Latitude = latitude;
 							bikeContainer.Longitude = longtitude;
-
+                            bikeContainer.Month = month;
 							//database.SaveItem(retItem);
 							BikeContainers.Add(bikeContainer);
 						}
