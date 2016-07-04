@@ -28,24 +28,27 @@ namespace Project4Bicycle
             await theftVM.GetBikeTheftsAsync();
             ObservableCollection<BikeContainer> containers = vm.BikeContainers;
             ObservableCollection<BikeTheft> thefts = theftVM.BikeThefts;
-            int[] months = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
 
-            foreach(int month in months)
+            for (int i = 1; i < 11; i++)
             {
-                StackedData data = new StackedData();
-                var monthC = containers.Where(item => item.Month == month);
-                var monthT = thefts.Where(item => item.Month == month);
-                foreach(var container in monthC)
+                if(containers.Any(item => item.Neighbourhood.Contains(selectedNeighbourhood) && item.Neighbourhood.Contains(selectedNeighbourhood)))
                 {
-                    data.AddContainer(container);
-                    data.Month = container.Month;
-                }
+                    StackedData data = new StackedData();
+                    var monthC = containers.Where(item => item.Month == i);
+                    var monthT = thefts.Where(item => item.Month == i);
+                    foreach (var container in monthC)
+                    {
+                        data.AddContainer(container);
+                    }
 
-                foreach (var theft in monthT)
-                {
-                    data.AddBikeThefts(theft);
+                    foreach (var theft in monthT)
+                    {
+                        data.AddBikeThefts(theft);
+                    }
+                    data.Month = i;
+                    sData.Add(data);
                 }
-                sData.Add(data);
+                
             }
 
             foreach(StackedData d in sData)

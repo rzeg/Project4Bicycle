@@ -84,6 +84,9 @@ namespace Project4Bicycle
                             case "mei":
                                 incidentMonth = "may";
                                 break;
+                            case "okt":
+                                incidentMonth = "oct";
+                                break;
                         }
 
                         //Find the corresponding month and add the amount to this month
@@ -93,6 +96,10 @@ namespace Project4Bicycle
                         {
                             if (month == UpperFirst(incidentMonth))
                             {
+                                if(incidentMonth == "dec")
+                                {
+
+                                }
                                 //HighTemperature.Add(new ChartDataPoint(month, randomDiefstallen++));
                                 int index = Array.IndexOf(months, month);
                                 monthThefts[index]++; //Add 1 incident to the corresponding month
@@ -135,6 +142,7 @@ namespace Project4Bicycle
 
             lineSeries.EnableAnimation = true;
             lineSeries.AnimationDuration = 3;
+            lineSeries.EnableTooltip = true;
             ChartZoomPanBehavior zoomPanBehavior = new ChartZoomPanBehavior();
 
             zoomPanBehavior.EnableSelectionZooming = true;
@@ -148,8 +156,8 @@ namespace Project4Bicycle
         {
             HighTemperature = new ObservableCollection<ChartDataPoint>();
             incidentMonthList = new List<string>();
-            months = new string[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
-            monthThefts = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+            months = new string[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "  "};
+            monthThefts = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
             FillData();
             Title = "Stolen bicycles per month";
@@ -169,22 +177,6 @@ namespace Project4Bicycle
                 Text = "Stolen bicycles"
             };
             chart.SecondaryAxis = secondaryAxis;
-
-
-
-            //string[] months = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
-            //incidentMonthList.AddRange(months);
-            //foreach (string month in incidentMonthList)
-            //{
-            //    HighTemperature.Add(new ChartDataPoint(month, 0));
-            //}
-
-
-
-
-
-
-
         }
     }
 }

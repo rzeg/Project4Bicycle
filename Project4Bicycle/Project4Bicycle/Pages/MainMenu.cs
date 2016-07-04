@@ -11,6 +11,9 @@ namespace Project4Bicycle
     class MainMenu : ContentPage
     {
         StolenPerMonthPage SPMP;
+        ContainerOverviewPage COP;
+        PieChartPage PCP;
+        GroupedChartPage GCP;
         public MainMenu()
         {
             Title = "Main menu";
@@ -21,7 +24,9 @@ namespace Project4Bicycle
             Button saveCurrentLocationButton = new Button { Text = "Save current location of bike" };
             Button createAppointmentButton = new Button { Text = "Create appointment in agenda" };
             SPMP = new StolenPerMonthPage();
-
+            COP = new ContainerOverviewPage();
+            PCP = new PieChartPage();
+            GCP = new GroupedChartPage();
             saveCurrentLocationButton.Clicked += SaveCurrentLocationButton_Clicked;
             mostContainersButton.Clicked += MostContainersButton_Clicked;
             stolenPerMonthButton.Clicked += StolenPerMonthButton_Clicked;
@@ -46,12 +51,12 @@ namespace Project4Bicycle
 
         private async void PieChartStolenBikesButton_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new PieChartPage());
+            await Navigation.PushAsync(PCP);
         }
 
         private async void GroupedChartButton_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new GroupedChartPage());
+            await Navigation.PushAsync(GCP);
         }
 
         private async void StolenPerMonthButton_Clicked(object sender, EventArgs e)
@@ -61,17 +66,12 @@ namespace Project4Bicycle
 
         async void MostContainersButton_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new ContainerOverviewPage());
+            await Navigation.PushAsync(COP);
         }
 
 		async void SaveCurrentLocationButton_Clicked(object sender, EventArgs e)
 		{
 			await Navigation.PushAsync(new ShareLocationPage());
-			//ICalendar calendar = DependencyService.Get<ICalendar>();
-
-			//calendar.SetReminder("Vergeet niet je schaatsen mee te nemen");
-			//calendar.SetEvent(15, 20, 30, "Hallo dit is een event", "we gaan schaatsen");		
-			//calendar.SetReminder("Vergeet niet de fiets te maken");
 		}
 
     }
