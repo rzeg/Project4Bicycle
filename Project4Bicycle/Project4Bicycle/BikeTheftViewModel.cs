@@ -47,8 +47,6 @@ namespace Project4Bicycle
 			{
 				brands.Add(brand);
 			}
-
-
 		}
 	}
 }
