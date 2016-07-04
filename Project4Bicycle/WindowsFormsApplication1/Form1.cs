@@ -43,6 +43,11 @@ namespace WindowsFormsApplication1
             //chart1.Series[0].Label = "Test";
 
 
+
+            chart3.Series[0].Points.DataBindXY(exes, whys);
+            chart3.Hide();
+
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -78,6 +83,8 @@ namespace WindowsFormsApplication1
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
             chart1.Hide();
+
+            chart3.Hide();
             chart2.Show();
         }
 
@@ -85,6 +92,8 @@ namespace WindowsFormsApplication1
         {
             chart1.Hide();
             chart2.Hide();
+
+            chart3.Hide();
 
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(@"http://mysafeinfo.com/api/data?list=englishmonarchs&format=json");
             HttpWebResponse response = (HttpWebResponse)request.GetResponse();
@@ -107,11 +116,19 @@ namespace WindowsFormsApplication1
         {
             chart1.Show();
             chart2.Hide();
+            chart3.Hide();
         }
 
         private void chart1_Click_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void radioButton1_CheckedChanged_1(object sender, EventArgs e)
+        {
+            chart1.Hide();
+            chart2.Hide();
+            chart3.Show();
         }
     }
 }
