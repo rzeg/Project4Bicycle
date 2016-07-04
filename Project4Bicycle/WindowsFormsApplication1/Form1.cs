@@ -23,6 +23,11 @@ namespace WindowsFormsApplication1
         List<int> whys = new List<int> { 10, 20, 30, 40 };
 
 
+        List<int> thefts = new List<int> { 0, 20, 80, 40 };
+
+        List<string> months = new List<string> { "Jan", "Feb", "Mar", "Apr" };
+
+
         List<string> names1 = new List<string> { "Bike", "Car"};
         List<int> value1 = new List<int> { 10, 20 };
 
@@ -44,7 +49,9 @@ namespace WindowsFormsApplication1
 
 
 
-            chart3.Series[0].Points.DataBindXY(exes, whys);
+            chart3.Series[0].Points.DataBindXY(months, thefts);
+            chart3.Series[0].Name = "Bike Thefts";
+
             chart3.Hide();
 
 
