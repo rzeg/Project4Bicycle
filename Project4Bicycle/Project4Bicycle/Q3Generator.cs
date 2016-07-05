@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Project4Bicycle
 {
-    class Q3Generator
+    public class Q3Generator
     {
         public string selectedNeighbourhood;
         ObservableCollection<BikeContainer> containers;

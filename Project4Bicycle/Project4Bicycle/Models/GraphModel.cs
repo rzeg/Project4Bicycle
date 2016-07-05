@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Project4Bicycle.Models
 {
-    abstract class GraphModel<T>
+    public abstract class GraphModel<T>
     {
         public ObservableCollection<T> model { get; set; }
         public void AddData(T entry)

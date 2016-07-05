@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Project4Bicycle.Models
 {
-    class Q3Model : GraphModel<StackedData>
+    public class Q3Model : GraphModel<StackedData>
     {
         public Q3Model()
         {

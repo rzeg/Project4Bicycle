@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Project4Bicycle.Models
 {
-	class BikeColorsGraphModel : GraphModel<Color>
+	public class BikeColorsGraphModel : GraphModel<Color>
 	{
 		public BikeColorsGraphModel()
 		{
