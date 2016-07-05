@@ -24,7 +24,6 @@ namespace Project4Bicycle
 
 		public ShareLocationPage()
 		{
-			
 			Button button = new Button
 			{
 				Text = "Get Location!",
@@ -77,12 +76,6 @@ namespace Project4Bicycle
 				VerticalOptions = LayoutOptions.CenterAndExpand
 			};
 
-			//foreach (string colorName in nameToColor.Keys)
-			//{
-			//	picker.Items.Add(colorName);
-			//}
-
-
 			Content = new StackLayout
 			{
 				Children = {
@@ -103,23 +96,32 @@ namespace Project4Bicycle
 			geoCoder = new Geocoder();
 
 			var locator1 = CrossGeolocator.Current;
-			var pos = await locator1.GetPositionAsync(timeoutMilliseconds: 10000);
-			position = new Position(pos.Latitude, pos.Longitude);
+            if(!locator1.IsGeolocationEnabled)
+            {
+                //GPS is unavailable
+                await DisplayAlert("No GPS", "We could not retrieve your location, please make sure you have GPS enabled.", "OK");
+            }
+            else
+            {
+                //Retrieve GPS coordinates
+                var pos = await locator1.GetPositionAsync(timeoutMilliseconds: 15000);
+                if(pos.Longitude != null || pos.Latitude != null)
+                {
+                    position = new Position(pos.Latitude, pos.Longitude);
 
-			var possibleAddresses = await geoCoder.GetAddressesForPositionAsync(position);
-			foreach (var address in possibleAddresses)
-				Debug.WriteLine(address);
-
-
-			//position = "Position Latitude: "+position1.Latitude+" Position Longitude: "+position1.Latitude;
-
-
-
-
-				//locationLabel.Text = position;
-
+                    //Get addresses makes the app crash, needs to be fixed.
+                    //var possibleAddresses = await geoCoder.GetAddressesForPositionAsync(position);
+                    //foreach (var address in possibleAddresses)
+                    //    Debug.WriteLine(address);
+                }
+                else
+                {
+                    //GPS is unavailable
+                    await DisplayAlert("Time-out", "We could not retrieve your location on-time, please try again.", "OK");
+                }
+                
+            }
 		}
-
 
 		void OnCalendarButtonClicked(object sender, EventArgs e)
 		{

@@ -11,7 +11,7 @@ namespace Project4Bicycle
     {
         public App()
         {
-            MainPage = new NavigationPage(new MainMenu());   
+            MainPage = new MainMenu();   
         }
 
         protected override void OnStart()
