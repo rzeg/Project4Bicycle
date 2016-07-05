@@ -24,10 +24,10 @@ namespace Project4Bicycle
             Button saveCurrentLocationButton = new Button { Text = "Save current location of bike" };
             Button createAppointmentButton = new Button { Text = "Create appointment in agenda" };
             Button mapsButton = new Button { Text = "Maps" };
-            //SPMP = new StolenPerMonthPage();
-            //COP = new ContainerOverviewPage();
-            //PCP = new PieChartPage();
-            //GCP = new GroupedChartPage();
+            SPMP = new StolenPerMonthPage();
+            COP = new ContainerOverviewPage();
+            PCP = new PieChartPage();
+            GCP = new GroupedChartPage();
             saveCurrentLocationButton.Clicked += SaveCurrentLocationButton_Clicked;
             mostContainersButton.Clicked += MostContainersButton_Clicked;
             stolenPerMonthButton.Clicked += StolenPerMonthButton_Clicked;
