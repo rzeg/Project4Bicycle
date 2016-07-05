@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
+using Project4Bicycle;
 
 
 
@@ -32,33 +33,99 @@ namespace WindowsFormsApplication1
             chart2.Hide();
             chart1.Hide();
 
-
-
             chart3.Hide();
             chart4.Hide();
             chart5.Hide();
 
+            
+
+
+        }
+
+        public async void GenerateGraph()
+        {
+            Project4Bicycle.BrandColorGenerator generator = new Project4Bicycle.BrandColorGenerator();
+
+            Project4Bicycle.Models.BikeBrandsGraphModel bg = await generator.GenerateBrands();
+
+            BrandColorGenerator generator2 = new BrandColorGenerator();
+
+            Project4Bicycle.Models.BikeColorsGraphModel bg2 = await generator.GenerateColors();
+
+
+            List<string> brand = new List<string>();
+
+            List<int> amount = new List<int>();
+
+            for (var i = 0; i < bg.model.Count; i++)
+            {
+                Brand tt = bg.model[i];
+                brand.Add(tt.Name);
+                amount.Add(tt.Count);
+            }
+
+            List<string> color = new List<string>();
+
+            List<int> amount2 = new List<int>();
+
+            for (var j = 0; j < bg2.model.Count; j++)
+            {
+                dynamic tt = bg2.model[j];
+                color.Add(tt.Name);
+                amount2.Add(tt.Count);
+
+            }
+                
+            chart5.Series[0].Points.DataBindXY(brand, amount);
+            chart5.Series[0].Name = "Thefts";
+
+            chart4.Series[0].Points.DataBindXY(color, amount2);
+            chart4.Series[0].Name = "Thefts";
+
+        }
+
+        public async void GenerateGraph2()
+        {
+            Project4Bicycle.Top5Generator gen = new Project4Bicycle.Top5Generator();
+            Project4Bicycle.Models.BikeGraphModel bg = await gen.GenerateNeighbourhoods();
+
+            List<string> neighbourhood = new List<string>();
+
+            List<int> amount = new List<int>();
+
+            for (var i = 0; i < bg.model.Count; i++)
+            {
+                Project4Bicycle.Models.Neighbourhood tt = bg.model[i];
+                neighbourhood.Add(tt.Name);
+                amount.Add(tt.BikeContainerCount);
+            }
+
+            chart1.Series[0].Points.DataBindXY(neighbourhood, amount);
+            chart1.Series[0].Name = "Bike Containers";
 
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
 
-            dynamic question1 = GetJsonURL("http://145.24.222.220/v2/questions/q1");
+            GenerateGraph();
+            GenerateGraph2();
+
+            //dynamic question1 = GetJsonURL("http://145.24.222.220/v2/questions/q1");
 
             dynamic question2 = GetJsonURL("http://145.24.222.220/v2/questions/q2");
 
             dynamic question3 = GetJsonURL("http://145.24.222.220/v2/questions/q3");
 
-            dynamic question4a = GetJsonURL("http://145.24.222.220/v2/questions/q4a");
+            //dynamic question4a = GetJsonURL("http://145.24.222.220/v2/questions/q4a");
 
-            dynamic question4b = GetJsonURL("http://145.24.222.220/v2/questions/q4b");
+            //dynamic question4b = GetJsonURL("http://145.24.222.220/v2/questions/q4b");
 
 
-            buildQ1(question1);
+            //buildQ1(question1);
             buildQ2(question2);
             buildQ3(question3);
-            buildQ4(question4a, question4b);
+            //buildQ4(question4a, question4b);
 
 
 
@@ -218,7 +285,7 @@ namespace WindowsFormsApplication1
             for (var i = 0; i < json.Count; i++)
             {
                 dynamic item = json[i];
-                Console.WriteLine("Name: {0}, Lifetime: {1}", (string)item.Count, (string)item.Neighborhoods);
+                //Console.WriteLine("Name: {0}, Lifetime: {1}", (string)item.Count, (string)item.Neighborhoods);
 
                 amount.Add((int)item.Count);
                 locations.Add((string)item.Neighborhoods);
@@ -256,7 +323,7 @@ namespace WindowsFormsApplication1
                     int date = (int)item.Month + count;
                     dates.Add(date);
                     stolenbikes.Add((int)item.StolenBikes);
-                    Console.WriteLine("Date: {0}", date.ToString());
+                    //Console.WriteLine("Date: {0}", date.ToString());
 
                     int curMonth = (int)item.Month - 1;
                     months.Add(monthNames[curMonth] + " " + (string)item.Year);
@@ -274,7 +341,7 @@ namespace WindowsFormsApplication1
                     dates.Add(date);
                     stolenbikes.Add((int)item.StolenBikes);
 
-                    Console.WriteLine("Date: {0}", date.ToString());
+                    //Console.WriteLine("Date: {0}", date.ToString());
                 }
 
 
