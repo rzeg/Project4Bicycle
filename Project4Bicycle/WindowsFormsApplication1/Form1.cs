@@ -23,6 +23,8 @@ namespace WindowsFormsApplication1
 
         List<CityDataMonth> cityDataMonth = new List<CityDataMonth>();
 
+        string[] monthNames = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthNames;
+
         public Form1()
         {
             InitializeComponent();
@@ -213,6 +215,9 @@ namespace WindowsFormsApplication1
 
             List<int> dates = new List<int>();
 
+
+            List<string> months = new List<string>();
+
             List<int> stolenbikes = new List<int>();
 
             int count = 0;
@@ -230,18 +235,29 @@ namespace WindowsFormsApplication1
                     dates.Add(date);
                     stolenbikes.Add((int)item.StolenBikes);
                     Console.WriteLine("Date: {0}", date.ToString());
+
+                    int curMonth = (int)item.Month - 1;
+                    months.Add(monthNames[curMonth] + " " + (string)item.Year);
+
+
                 }
                 else
                 {
                     int date = (int)item.Month + count;
+
+                    int curMonth = (int)item.Month - 1;
+                    months.Add(monthNames[curMonth] +  " " + (string)item.Year);
+
+
                     dates.Add(date);
                     stolenbikes.Add((int)item.StolenBikes);
+
                     Console.WriteLine("Date: {0}", date.ToString());
                 }
 
 
-                chart3.Series[0].Points.DataBindXY(dates, stolenbikes);
-                chart3.Series[0].Name = "Bike Thefts over 30 months";
+                chart3.Series[0].Points.DataBindXY(months, stolenbikes);
+                chart3.Series[0].Name = "Bike Thefts";
 
 
             }
@@ -262,7 +278,6 @@ namespace WindowsFormsApplication1
 
 
 
-            string[] monthNames = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthNames;
 
 
 
