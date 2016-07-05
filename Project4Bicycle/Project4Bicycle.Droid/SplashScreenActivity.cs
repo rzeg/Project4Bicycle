@@ -17,6 +17,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.Content.PM;
+using Android.Net;
 
 namespace Project4Bicycle.Droid
 {
@@ -26,7 +27,27 @@ namespace Project4Bicycle.Droid
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            this.StartActivity(typeof(MainActivity));
+            ConnectivityManager connectivityManager = (ConnectivityManager)GetSystemService(ConnectivityService);
+            NetworkInfo activeConnection = connectivityManager.ActiveNetworkInfo;
+            bool isOnline = (activeConnection != null) && activeConnection.IsConnected;
+
+            if(isOnline)
+            {
+                this.StartActivity(typeof(MainActivity));
+            }
+            else
+            {
+                new AlertDialog.Builder(this)
+                    .SetPositiveButton("I understand", (sender, args) =>
+                    {
+                        //Exit app after user input
+                        System.Environment.Exit(0);
+                    })
+                    .SetMessage("This app requires an active internet connection. App is about to exit.")
+                    .SetTitle("No internet")
+                    .Show();
+            }
+            
         }
     }
 }
