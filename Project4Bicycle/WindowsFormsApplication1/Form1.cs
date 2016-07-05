@@ -95,6 +95,11 @@ namespace WindowsFormsApplication1
             chart5.Hide();
 
             listBox1.Show();
+
+            label1.Text = "Bike thefts in Rotterdam";
+
+            label1.Show();
+            label2.Hide();
         }
 
         private void radioButton2_CheckedChanged(object sender, EventArgs e)
@@ -109,6 +114,12 @@ namespace WindowsFormsApplication1
             chart4.Show();
             chart5.Show();
 
+            label1.Text = "Amount of stolen bikes by brand in Rotterdam";
+            label2.Text = "Amount of stolen bikes by color in Rotterdam";
+
+            label1.Show();
+            label2.Show();
+
         }
 
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
@@ -121,6 +132,10 @@ namespace WindowsFormsApplication1
 
             listBox1.Hide();
 
+            label1.Text = "Top 5 bike containers in sub-areas of Rotterdam";
+
+            label1.Show();
+            label2.Hide();
 
         }
 
@@ -137,6 +152,13 @@ namespace WindowsFormsApplication1
             chart4.Hide();
             chart5.Hide();
             listBox1.Hide();
+
+
+            label1.Text = "The bike thefts over the past years in Rotterdam";
+
+            label1.Show();
+            label2.Hide();
+
 
         }
 
@@ -347,25 +369,66 @@ namespace WindowsFormsApplication1
             List<string> color = new List<string>();
 
 
+            List<BrandStolen> brandstolen = new List<BrandStolen>();
+            List<ColorStolen> colorstolen = new List<ColorStolen>();
+
+
+
+
             for (var i = 0; i < json.Count; i++)
             {
                 dynamic item = json[i];
 
-                brand.Add((string)item.Brand);
-                amountstolen.Add((int)item.Count);
+                brandstolen.Add(new BrandStolen((string)item.Brand, (int)item.Count));
             }
 
             for (var j = 0; j < json2.Count; j++)
             {
                 dynamic item = json2[j];
 
-                color.Add((string)item.Color);
-                amountstolen2.Add((int)item.Count);
+
+                colorstolen.Add(new ColorStolen((string)item.Color, (int)item.Count));
+
             }
 
 
-            chart4.Series[0]["PieLabelStyle"] = "Disabled";
-            chart5.Series[0]["PieLabelStyle"] = "Disabled";
+            var top10BrandStolen = brandstolen.OrderByDescending(w => w.Amount).Take(9).ToArray();
+            var brandstolenOther = brandstolen.OrderByDescending(w => w.Amount).Skip(9).Sum(w => w.Amount);
+
+            brand.Add("OTHER");
+            amountstolen.Add(brandstolenOther);
+
+            for (var q = 0; q < top10BrandStolen.Count(); q++)
+            {
+                BrandStolen item = top10BrandStolen[q];
+
+                brand.Add(item.Brand);
+                amountstolen.Add(item.Amount);
+            }
+
+            var top10ColorStolen = colorstolen.OrderByDescending(w => w.Amount).Take(9).ToArray();
+            var colorstolenOther = colorstolen.OrderByDescending(w => w.Amount).Skip(9).Sum(w => w.Amount);
+
+            color.Add("OTHER");
+            amountstolen2.Add(colorstolenOther);
+
+            for (var q = 0; q < top10ColorStolen.Count(); q++)
+            {
+                ColorStolen item = top10ColorStolen[q];
+
+                color.Add(item.Coloro);
+                amountstolen2.Add(item.Amount);
+            }
+
+
+            //chart4.Series[0]["PieLabelStyle"] = "Disabled";
+            //chart5.Series[0]["PieLabelStyle"] = "Disabled";
+
+
+            label1.Text = "Amount of stolen biciclyes by brand in Rotterdam";
+            label2.Text = "Amount of stolen biciclyes by color in Rotterdam";
+
+
 
             chart4.Series[0].Points.DataBindXY(brand, amountstolen);
             chart4.Series[0].Name = "Thefts";
@@ -405,6 +468,28 @@ namespace WindowsFormsApplication1
         public List<int> Thefts { get; set; }
         public List<int> Trommels { get; set; }
         public List<string> Months { get; set; }
+    }
+    class BrandStolen
+    {
+        public BrandStolen(string brand, int amount)
+        {
+            Brand = brand;
+            Amount = amount;
+        }
+
+        public string Brand { get; set; }
+        public int Amount { get; set; }
+    }
+    class ColorStolen
+    {
+        public ColorStolen(string color, int amount)
+        {
+            Coloro = color;
+            Amount = amount;
+        }
+
+        public string Coloro { get; set; }
+        public int Amount { get; set; }
     }
 
 
