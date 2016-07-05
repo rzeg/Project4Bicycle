@@ -66,6 +66,10 @@
     <Compile Include="Models\Brand.cs" />
     <Compile Include="Pages\BrandPieChartPage.cs" />
     <Compile Include="Pages\ColorPieChartPage.cs" />
+    <Compile Include="Pages\MapPage.cs" />
+    <Compile Include="NeighbourhoodTheftsGenerator.cs" />
+    <Compile Include="BikeTheftNeighbourhoodsModel.cs" />
+    <Compile Include="NeighbourhoodTheft.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Plugin.Geolocator.Abstractions, Version=3.0.4.0, Culture=neutral, processorArchitecture=MSIL">

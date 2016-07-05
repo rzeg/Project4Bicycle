@@ -18,7 +18,9 @@ namespace Project4Bicycle
 		Label locationLabel;
 		DatePicker datePicker;
 		TimePicker timePicker;
-		string position;
+		Position position;
+		//string position;
+		Geocoder geoCoder;
 
 		public ShareLocationPage()
 		{
@@ -98,19 +100,23 @@ namespace Project4Bicycle
 
 		async void OnButtonClicked(object sender, EventArgs e)
 		{
-			
-			//position = "213156785432";
-
-
-			//#if __ANDROID__
+			geoCoder = new Geocoder();
 
 			var locator1 = CrossGeolocator.Current;
-			var position1 = await locator1.GetPositionAsync(timeoutMilliseconds: 10000);
-			position = "Position Latitude: "+position1.Latitude+" Position Longitude: "+position1.Latitude;
+			var pos = await locator1.GetPositionAsync(timeoutMilliseconds: 10000);
+			position = new Position(pos.Latitude, pos.Longitude);
 
-			//#endif
+			var possibleAddresses = await geoCoder.GetAddressesForPositionAsync(position);
+			foreach (var address in possibleAddresses)
+				Debug.WriteLine(address);
 
-			locationLabel.Text = position;
+
+			//position = "Position Latitude: "+position1.Latitude+" Position Longitude: "+position1.Latitude;
+
+
+
+
+				//locationLabel.Text = position;
 
 		}
 
@@ -120,6 +126,7 @@ namespace Project4Bicycle
 			ICalendar calendar = DependencyService.Get<ICalendar>();
 
 			calendar.SetEvent(datePicker.Date + timePicker.Time, "Fiets ophalen", "Locatie van fiets: " + position);
+			Debug.WriteLine("Fiets ophalen", "Locatie van fiets: " + position);
 			Debug.WriteLine("set event");
 		}
 
@@ -130,7 +137,8 @@ namespace Project4Bicycle
 			datePicker.Date = datePicker.Date + timePicker.Time;
 
 			calendar.SetReminder(position + " at Time:  " + (datePicker.Date + timePicker.Time).ToString());
-			Debug.WriteLine("set reminder");
+			Debug.WriteLine(position + " at Time:  " + (datePicker.Date + timePicker.Time).ToString());
+			//Debug.WriteLine("set reminder");
 		}
 	}
 }

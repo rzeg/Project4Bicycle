@@ -98,6 +98,7 @@
     <None Include="packages.config" />
     <Compile Include="CalendarAPI.cs" />
     <Compile Include="SQLite_iOS.cs" />
+    <Compile Include="CustomMapRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-568h%402x.png" />

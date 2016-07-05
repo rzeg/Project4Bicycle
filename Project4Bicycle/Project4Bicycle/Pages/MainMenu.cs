@@ -23,15 +23,17 @@ namespace Project4Bicycle
             Button pieChartStolenBikesButton = new Button { Text = "Most stolen bikes and colors" };
             Button saveCurrentLocationButton = new Button { Text = "Save current location of bike" };
             Button createAppointmentButton = new Button { Text = "Create appointment in agenda" };
-            SPMP = new StolenPerMonthPage();
-            COP = new ContainerOverviewPage();
-            PCP = new PieChartPage();
-            GCP = new GroupedChartPage();
+            Button mapsButton = new Button { Text = "Maps" };
+            //SPMP = new StolenPerMonthPage();
+            //COP = new ContainerOverviewPage();
+            //PCP = new PieChartPage();
+            //GCP = new GroupedChartPage();
             saveCurrentLocationButton.Clicked += SaveCurrentLocationButton_Clicked;
             mostContainersButton.Clicked += MostContainersButton_Clicked;
             stolenPerMonthButton.Clicked += StolenPerMonthButton_Clicked;
             groupedChartButton.Clicked += GroupedChartButton_Clicked;
             pieChartStolenBikesButton.Clicked += PieChartStolenBikesButton_Clicked;
+			mapsButton.Clicked += MapsButton_clicked;
 
             StackLayout sl = new StackLayout
             {
@@ -43,6 +45,7 @@ namespace Project4Bicycle
                     pieChartStolenBikesButton,
                     saveCurrentLocationButton,
                     createAppointmentButton,
+					mapsButton,
                 }
             };
 
@@ -69,9 +72,15 @@ namespace Project4Bicycle
             await Navigation.PushAsync(COP);
         }
 
+
 		async void SaveCurrentLocationButton_Clicked(object sender, EventArgs e)
 		{
 			await Navigation.PushAsync(new ShareLocationPage());
+		}
+
+		async void MapsButton_clicked(object sender, EventArgs e)
+		{
+			await Navigation.PushAsync(new MapPage());
 		}
 
     }
