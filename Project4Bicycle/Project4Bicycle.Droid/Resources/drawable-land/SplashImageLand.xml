@@ -2,7 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
   <item>
     <bitmap
-        android:src="@drawable/SplashScreen"
+        android:src="@drawable/SplashScreenLand"
         android:tileMode="disabled"
         android:layout_centerInParent="true"/>
   </item>

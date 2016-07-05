@@ -13,7 +13,7 @@ namespace Project4Bicycle
 
 	public class BikeContainerViewModel
 	{
-		public ObservableCollection<BikeContainer> BikeContainers { get; } = new ObservableCollection<BikeContainer>();
+		public ObservableCollection<BikeContainer> BikeContainers = new ObservableCollection<BikeContainer>();
 
 		public BikeContainerViewModel()
 		{

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Project4Bicycle
 {
-	class BrandColorGenerator
+	public class BrandColorGenerator
 	{
 		List<Color> colors = new List<Color>();
 		List<Brand> brands = new List<Brand>();

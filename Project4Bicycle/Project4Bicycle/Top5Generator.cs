@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Project4Bicycle
 {
-    class Top5Generator
+    public class Top5Generator
     {
         HashSet<string> neighbourhoods = new HashSet<string>();
         List<Neighbourhood> realNeighbourhoods = new List<Neighbourhood>();
