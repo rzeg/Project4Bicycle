@@ -9,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Project4Bicycle;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 
@@ -31,6 +32,8 @@ namespace WindowsFormsApplication1
             chart2.Series[0].Name = "Containers";
             chart2.Series[1].Points.DataBindXY(exes, whys);
             chart2.Hide();
+            Project4Bicycle.Data.Gemeentes k = new Project4Bicycle.Data.Gemeentes();
+            k.Test();
         }
 
         private void Form1_Load(object sender, EventArgs e)

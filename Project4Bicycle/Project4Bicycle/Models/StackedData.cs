@@ -6,7 +6,7 @@ namespace Project4Bicycle.Models
     {
         public List<BikeContainer> BikeContainers = new List<BikeContainer>();
         public List<BikeTheft> BikeThefts = new List<BikeTheft>();
-        public int Month { get; set; }
+        public string Month { get; set; }
         public int BikeContainerCount { get { return BikeContainers.Count; } }
         public int BikeTheftCount { get { return BikeThefts.Count; } }
 

@@ -13,5 +13,10 @@ namespace Project4Bicycle.Models
         {
             model = new ObservableCollection<StackedData>();
         }
+
+        internal void Clear()
+        {
+            model.Clear();
+        }
     }
 }
