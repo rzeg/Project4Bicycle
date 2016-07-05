@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Project4Bicycle.Models
 {
-    class Neighbourhood
+    public class Neighbourhood
     {
         public List<BikeContainer> BikeContainers = new List<BikeContainer>();
         public string Name { get; set; }

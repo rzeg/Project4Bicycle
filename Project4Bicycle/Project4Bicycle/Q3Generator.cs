@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Project4Bicycle
 {
-    class Q3Generator
+    public class Q3Generator
     {
         List<StackedData> sData = new List<StackedData>();
         public string selectedNeighbourhood;
