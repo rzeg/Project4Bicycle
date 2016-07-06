@@ -109,17 +109,44 @@ namespace WindowsFormsApplication1
         public async void GenerateGraph3()
         {
 
-            Q3Generator generator = new Q3Generator();
+            List<string> months = new List<string>();
+            List<int> stolenBike = new List<int>();
+            List<int> bikeContainers = new List<int>();
 
+            Q3Generator generator = new Q3Generator();
+            await generator.LoadData();
+
+            foreach (string neighbourhood in generator.GetNeighbourhoodList())
+                neighbourhood2.Add(neighbourhood);
+
+            listBox1.DataSource = neighbourhood2;
+
+            generator.SetNeighbourhood(neighbourhood2[(int)listBox1.SelectedIndex]);
+            
             Project4Bicycle.Models.Q3Model bg = generator.GenerateGraphModel();
 
+            for (var i = 0; i < bg.model.Count; i++)
+            {
+                Project4Bicycle.Models.StackedData tt = bg.model[i];
+                months.Add(tt.Month);
+                stolenBike.Add(tt.BikeTheftCount);
+                bikeContainers.Add(tt.BikeContainerCount);
+            }
+
+
+            chart2.Series[0].Points.DataBindXY(months, stolenBike);
+            chart2.Series[0].Name = "Thefts";
+
+            chart2.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
+            chart2.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
+
+
+            chart2.Series[1].Name = "Bike Containers";
+            chart2.Series[1].Points.DataBindXY(months, bikeContainers);
 
 
 
-            //foreach (string neighbourhood in generator.GetNeighbourhoodList())
-            //    neighbourhood2.Add(neighbourhood);
 
-            //generator.SetNeighbourhood(neighbourhood2[0]);
 
         }
 
@@ -134,7 +161,7 @@ namespace WindowsFormsApplication1
 
             //-dynamic question2 = GetJsonURL("http://145.24.222.220/v2/questions/q2");
 
-            //-dynamic question3 = GetJsonURL("http://145.24.222.220/v2/questions/q3");
+            //dynamic question3 = GetJsonURL("http://145.24.222.220/v2/questions/q3");
 
             //dynamic question4a = GetJsonURL("http://145.24.222.220/v2/questions/q4a");
 
@@ -254,15 +281,17 @@ namespace WindowsFormsApplication1
 
             int index = (int)listBox1.SelectedIndex;
 
-            chart2.Series[0].Points.DataBindXY(cityDataMonth[index].Months, cityDataMonth[index].Thefts);
-            chart2.Series[0].Name = "Thefts";
+            GenerateGraph3();
 
-            chart2.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
-            chart2.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
+            //chart2.Series[0].Points.DataBindXY(cityDataMonth[index].Months, cityDataMonth[index].Thefts);
+            //chart2.Series[0].Name = "Thefts";
+
+            //chart2.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
+            //chart2.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
 
 
-            chart2.Series[1].Name = "Bike Containers";
-            chart2.Series[1].Points.DataBindXY(cityDataMonth[index].Months, cityDataMonth[index].Trommels);
+            //chart2.Series[1].Name = "Bike Containers";
+            //chart2.Series[1].Points.DataBindXY(cityDataMonth[index].Months, cityDataMonth[index].Trommels);
 
             //chart2.Series[0].Points.DataBindXY(locations, containers);
             //chart2.Series[0].Name = "Thefts";
