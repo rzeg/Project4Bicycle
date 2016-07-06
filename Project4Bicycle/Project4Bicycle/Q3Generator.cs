@@ -44,6 +44,7 @@ namespace Project4Bicycle
             var neighbourhoods = gemeentes.deelGemeentes.Select(item => item.Name).ToList();
             return neighbourhoods;
         }
+
         public Q3Model GenerateGraphModel()
         {
             Q3Model q3model = new Q3Model();
@@ -57,7 +58,7 @@ namespace Project4Bicycle
                 var monthT = thefts.Where(item => item.Month == i);
                 foreach (var theft in monthT)
                 {
-                    if(deelgemeente.GetWijken().Any(item => item.StartsWith(theft.Neighbourhood.Remove(0,3), StringComparison.CurrentCultureIgnoreCase)))
+                    if (deelgemeente.GetWijken().Any(item => item.StartsWith(theft.Neighbourhood, StringComparison.CurrentCultureIgnoreCase)))
                     {
                         data.AddBikeThefts(theft);
                     }

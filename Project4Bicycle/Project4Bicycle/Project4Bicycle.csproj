@@ -123,6 +123,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Data\b59c159338.csv" />
+    <EmbeddedResource Include="Data\pxxc2.csv" />
     <None Include="GettingStarted.Xamarin" />
     <None Include="packages.config" />
   </ItemGroup>
