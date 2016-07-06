@@ -18,8 +18,9 @@ namespace Project4Bicycle
             ContainerOverviewPage COP;
             PieChartPage PCP;
             GroupedChartPage GCP;
-            ShareLocationPage SLP;
             MapPage MP;
+			LocationPage LP;
+
             COP = new ContainerOverviewPage();
             COP.Title = "Top 5 amount of bicycle containers";
 
@@ -32,8 +33,8 @@ namespace Project4Bicycle
             PCP = new PieChartPage();
             PCP.Title = "Most stolen bicycles and colours";
 
-            SLP = new ShareLocationPage();
-            SLP.Title = "Location of my bike";
+            LP = new LocationPage();
+            LP.Title = "Location of my bike";
 
             MP = new MapPage();
             MP.Title = "Map";
@@ -42,7 +43,7 @@ namespace Project4Bicycle
             Children.Add(SPMP);
             Children.Add(PCP);
             Children.Add(GCP);
-            Children.Add(SLP);
+            Children.Add(LP);
             Children.Add(MP);
         }
     }

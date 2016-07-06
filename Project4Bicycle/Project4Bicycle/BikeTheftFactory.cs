@@ -11,7 +11,6 @@ namespace Project4Bicycle
 	{
 		T GetCurrent();
 		bool HasNext();
-		void MoveNext();
 	}
 
 

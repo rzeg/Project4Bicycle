@@ -36,7 +36,7 @@ namespace Project4Bicycle
 				brand.AddColor(bikeTheft.Brand);
 			}
 
-			var filteredBrands = brands.OrderByDescending(x => x.Count).Take(10);
+			var filteredBrands = brands.OrderByDescending(x => x.Count).Take(9);
 
 			var Count = 0;
 			foreach (Brand brand in filteredBrands)
@@ -79,7 +79,7 @@ namespace Project4Bicycle
 				color.AddColor(bikeTheft.Color);
 			}
 
-			var filteredColors = colors.OrderByDescending(x => x.Count).Take(10);
+			var filteredColors = colors.OrderByDescending(x => x.Count).Take(9);
 
 
 

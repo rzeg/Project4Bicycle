@@ -71,7 +71,6 @@ namespace Project4Bicycle
               
                 data.Month = new DateTime(2010, i, 1).ToString("MMM");
                 sData.Add(data);
-
             }
             
             foreach(StackedData d in sData)

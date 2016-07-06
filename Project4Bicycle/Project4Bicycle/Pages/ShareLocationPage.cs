@@ -115,7 +115,7 @@ namespace Project4Bicycle
           foreach (var address in possibleAddresses)
           {
             Debug.WriteLine(address);
-            //reverseGeocodedOutputLabel.Text += address + "\n";
+            locationLabel.Text += address + "\n";
           }
 
           //Debug.WriteLine(possibleAddresses);
