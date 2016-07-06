@@ -15,8 +15,11 @@ namespace Project4Bicycle.Data
 
         public Gemeentes()
         {
+            //Vanuit een text file alle Gemeentes selecteren met de daarbij behorende deelgemeentes/wijken.
+            //Informatie hierover is deels van Wikipedia en deels op basis van de data die we al hebben.
             var assembly = typeof(Gemeentes).GetTypeInfo().Assembly;
             string[] fields;
+            //Xamarin gebruikt dit om cross-platform een file uit te lezen.
             Stream stream = assembly.GetManifestResourceStream("Project4Bicycle.Data.Stadsdelen.txt");
             string text = "";
             using (var reader = new System.IO.StreamReader(stream))
@@ -29,13 +32,16 @@ namespace Project4Bicycle.Data
                     {
                         if(i == 0)
                         {
+                            //Eerste veld in bestand is de naam van de deelgemeente
                             deelGemeente.Name = fields[0];
                         }
                         else
                         {
+                            //De rest van de velden zijn wijken in de deelgemeente
                             deelGemeente.AddWijk(fields[i]);
                         }
                     }
+                    //Voeg deelgemeente toe aan de lijst van deelgemeentes.
                     deelGemeentes.Add(deelGemeente);
                 }
             }

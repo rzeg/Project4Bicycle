@@ -16,6 +16,7 @@ namespace Project4Bicycle
   public class ShareLocationPage : ContentPage
   {
     Label locationLabel;
+    Label reminderLabel;
     DatePicker datePicker;
     TimePicker timePicker;
     Position position;
@@ -24,6 +25,8 @@ namespace Project4Bicycle
 
     public ShareLocationPage()
     {
+
+      ICalendar calendar = DependencyService.Get<ICalendar>();
 
       Button button = new Button
       {
@@ -63,6 +66,15 @@ namespace Project4Bicycle
         VerticalOptions = LayoutOptions.CenterAndExpand
       };
 
+      reminderLabel = new Label
+      {
+        //Text = "Reminder",
+        Font = Font.SystemFontOfSize(NamedSize.Large),
+        HorizontalOptions = LayoutOptions.Center,
+        VerticalOptions = LayoutOptions.CenterAndExpand
+      };
+      string reminderText = calendar.getReminder().ToString();
+      reminderLabel.Text = reminderText;
       datePicker = new DatePicker
       {
         Format = "D",
@@ -85,12 +97,15 @@ namespace Project4Bicycle
           calendarButton,
           reminderButton,
           locationLabel,
+          reminderLabel,
           picker,
           datePicker,
           timePicker
         }
       };
     }
+
+    
 
     async void OnButtonClicked(object sender, EventArgs e)
     {
@@ -105,22 +120,31 @@ namespace Project4Bicycle
       else
       {
         //Retrieve GPS coordinates
-        var pos = await locator1.GetPositionAsync(timeoutMilliseconds: 15000);
+        var pos = await locator1.GetPositionAsync(timeoutMilliseconds: 30000);
         if (pos.Longitude != 0.0D || pos.Latitude != 0.0D)//0.0D to check if empty, double can't be 'null'.
         {
           position = new Position(pos.Latitude, pos.Longitude);
 
           //Get addresses makes the app crash, needs to be fixed.
+<<<<<<< HEAD
           var possibleAddresses = await geoCoder.GetAddressesForPositionAsync(position);
           foreach (var address in possibleAddresses)
           {
             Debug.WriteLine(address);
             locationLabel.Text += address + "\n";
           }
+=======
+          //var possibleAddresses = await geoCoder.GetAddressesForPositionAsync(position);
+          //foreach (var address in possibleAddresses)
+          //{
+          //  Debug.WriteLine(address);
+          //  //reverseGeocodedOutputLabel.Text += address + "\n";
+          //}
+>>>>>>> 0926de658a793bccd19ca8eccc2d98b2d0ad2bca
 
           //Debug.WriteLine(possibleAddresses);
           //if (System.Text.Encoding.UTF8.GetBytes(possibleAddresses.City.ToCharArray())[0] == 226 && result.City.Contains(" ")) { result.City = result.City.Substring(result.City.IndexOf(" ")).Trim(); }
-
+            
           //foreach (var address in possibleAddresses)
           //{
           //  Debug.WriteLine(address);
@@ -150,9 +174,13 @@ namespace Project4Bicycle
       ICalendar calendar = DependencyService.Get<ICalendar>();
 
       datePicker.Date = datePicker.Date + timePicker.Time;
-
+      //position moet een echte position worden dus.
       calendar.SetReminder(position + " at Time:  " + (datePicker.Date + timePicker.Time).ToString());
       Debug.WriteLine(position + " at Time:  " + (datePicker.Date + timePicker.Time).ToString());
+      string reminderText = calendar.getReminder().ToString();
+      reminderLabel.Text = reminderText;
+
+
       //Debug.WriteLine("set reminder");
     }
   }
