@@ -15,7 +15,7 @@ namespace Project4Bicycle
 	}
 
 
-	class BikeTheftFactory : TraditionalIterator<BikeTheft>
+	public class BikeTheftFactory : TraditionalIterator<BikeTheft>
 	{
 		StreamReader reader;
 		bool skipRow;

@@ -1,32 +1,21 @@
-﻿using System;
-using System.Collections;
+﻿using Newtonsoft.Json;
+using Project4Bicycle;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using Newtonsoft.Json;
-using Project4Bicycle;
-
-
-
 
 namespace WindowsFormsApplication1
 {
-
     public partial class Form1 : Form
     {
+        private List<CityDataMonth> cityDataMonth = new List<CityDataMonth>();
 
-        List<CityDataMonth> cityDataMonth = new List<CityDataMonth>();
+        private List<string> neighbourhood2 = new List<string>();
 
-        List<string> neighbourhood2 = new List<string>();
-
-        string[] monthNames = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthNames;
+        private string[] monthNames = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthNames;
 
         public Form1()
         {
@@ -38,10 +27,6 @@ namespace WindowsFormsApplication1
             chart3.Hide();
             chart4.Hide();
             chart5.Hide();
-
-            
-
-
         }
 
         public async void GenerateGraph()
@@ -53,7 +38,6 @@ namespace WindowsFormsApplication1
             BrandColorGenerator generator2 = new BrandColorGenerator();
 
             Project4Bicycle.Models.BikeColorsGraphModel bg2 = await generator.GenerateColors();
-
 
             List<string> brand = new List<string>();
 
@@ -75,15 +59,13 @@ namespace WindowsFormsApplication1
                 dynamic tt = bg2.model[j];
                 color.Add(tt.Name);
                 amount2.Add(tt.Count);
-
             }
-                
+
             chart5.Series[0].Points.DataBindXY(brand, amount);
             chart5.Series[0].Name = "Thefts";
 
             chart4.Series[0].Points.DataBindXY(color, amount2);
             chart4.Series[0].Name = "Thefts";
-
         }
 
         public async void GenerateGraph2()
@@ -104,11 +86,10 @@ namespace WindowsFormsApplication1
 
             chart1.Series[0].Points.DataBindXY(neighbourhood, amount);
             chart1.Series[0].Name = "Bike Containers";
-
         }
+
         public async void GenerateGraph3()
         {
-
             List<string> months = new List<string>();
             List<int> stolenBike = new List<int>();
             List<int> bikeContainers = new List<int>();
@@ -122,7 +103,7 @@ namespace WindowsFormsApplication1
             listBox1.DataSource = neighbourhood2;
 
             generator.SetNeighbourhood(neighbourhood2[(int)listBox1.SelectedIndex]);
-            
+
             Project4Bicycle.Models.Q3Model bg = generator.GenerateGraphModel();
 
             for (var i = 0; i < bg.model.Count; i++)
@@ -133,29 +114,79 @@ namespace WindowsFormsApplication1
                 bikeContainers.Add(tt.BikeContainerCount);
             }
 
-
             chart2.Series[0].Points.DataBindXY(months, stolenBike);
             chart2.Series[0].Name = "Thefts";
 
             chart2.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
             chart2.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
 
-
             chart2.Series[1].Name = "Bike Containers";
             chart2.Series[1].Points.DataBindXY(months, bikeContainers);
+        }
 
+        public async void GenerateGraph4()
+        {
+            List<BikeTheft> theftContainer = new List<BikeTheft>();
+            List<int> theftsOverYear = new List<int>();
+            List<string> theftsMonths = new List<string>();
 
+            var assembly = typeof(BikeTheftViewModel).Assembly;
+            Stream stream = assembly.GetManifestResourceStream("Project4Bicycle.Data.b59c159338.csv");
+            var reader = new StreamReader(stream);
 
+            Project4Bicycle.BikeTheftFactory factory = new Project4Bicycle.BikeTheftFactory(reader);
+            BikeTheft bikeTheft;
 
+            while (factory.HasNext())
+            {
+                bikeTheft = factory.GetCurrent();
 
+                theftContainer.Add(bikeTheft);
+            }
+
+            int max2004 = theftContainer.Where(theft => theft.Year == 2004).Count();
+            int max2005 = theftContainer.Where(theft => theft.Year == 2005).Count();
+            int max2006 = theftContainer.Where(theft => theft.Year == 2006).Count();
+            int max2007 = theftContainer.Where(theft => theft.Year == 2007).Count();
+            int max2008 = theftContainer.Where(theft => theft.Year == 2008).Count();
+            int max2009 = theftContainer.Where(theft => theft.Year == 2009).Count();
+            int max2010 = theftContainer.Where(theft => theft.Year == 2010).Count();
+            int max2011 = theftContainer.Where(theft => theft.Year == 2011).Count();
+            int max2012 = theftContainer.Where(theft => theft.Year == 2012).Count();
+            int max2013 = theftContainer.Where(theft => theft.Year == 2013).Count();
+
+            theftsOverYear.Add(max2004);
+            theftsOverYear.Add(max2005);
+            theftsOverYear.Add(max2006);
+            theftsOverYear.Add(max2007);
+            theftsOverYear.Add(max2008);
+            theftsOverYear.Add(max2009);
+            theftsOverYear.Add(max2010);
+            theftsOverYear.Add(max2011);
+            theftsOverYear.Add(max2012);
+            theftsOverYear.Add(max2013);
+
+            theftsMonths.Add("2004");
+            theftsMonths.Add("2005");
+            theftsMonths.Add("2006");
+            theftsMonths.Add("2007");
+            theftsMonths.Add("2008");
+            theftsMonths.Add("2009");
+            theftsMonths.Add("2010");
+            theftsMonths.Add("2011");
+            theftsMonths.Add("2012");
+            theftsMonths.Add("2013");
+
+            chart3.Series[0].Points.DataBindXY(theftsMonths, theftsOverYear);
+            chart3.Series[0].Name = "Bike Thefts";
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
             GenerateGraph();
             GenerateGraph2();
             GenerateGraph3();
+            GenerateGraph4();
 
             //dynamic question1 = GetJsonURL("http://145.24.222.220/v2/questions/q1");
 
@@ -167,35 +198,26 @@ namespace WindowsFormsApplication1
 
             //dynamic question4b = GetJsonURL("http://145.24.222.220/v2/questions/q4b");
 
-
             //buildQ1(question1);
             //buildQ2(question2);
             //buildQ3(question3);
             //buildQ4(question4a, question4b);
-
-
-
-
         }
 
         private void chart1_Click(object sender, EventArgs e)
         {
-            
         }
 
         private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
         {
-
         }
 
         private void chart2_Click(object sender, EventArgs e)
         {
-
         }
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-
         }
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
@@ -232,7 +254,6 @@ namespace WindowsFormsApplication1
 
             label1.Show();
             label2.Show();
-
         }
 
         private void radioButton3_CheckedChanged(object sender, EventArgs e)
@@ -249,12 +270,10 @@ namespace WindowsFormsApplication1
 
             label1.Show();
             label2.Hide();
-
         }
 
         private void chart1_Click_1(object sender, EventArgs e)
         {
-
         }
 
         private void radioButton1_CheckedChanged_1(object sender, EventArgs e)
@@ -266,54 +285,25 @@ namespace WindowsFormsApplication1
             chart5.Hide();
             listBox1.Hide();
 
-
             label1.Text = "The bike thefts over the past years in Rotterdam";
 
             label1.Show();
             label2.Hide();
-
-
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-
             int index = (int)listBox1.SelectedIndex;
 
             GenerateGraph3();
-
-            //chart2.Series[0].Points.DataBindXY(cityDataMonth[index].Months, cityDataMonth[index].Thefts);
-            //chart2.Series[0].Name = "Thefts";
-
-            //chart2.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
-            //chart2.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
-
-
-            //chart2.Series[1].Name = "Bike Containers";
-            //chart2.Series[1].Points.DataBindXY(cityDataMonth[index].Months, cityDataMonth[index].Trommels);
-
-            //chart2.Series[0].Points.DataBindXY(locations, containers);
-            //chart2.Series[0].Name = "Thefts";
-
-            //chart2.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
-            //chart2.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
-
-
-            //chart2.Series[1].Name = "Bike Containers";
-            //chart2.Series[1].Points.DataBindXY(locations, stolenbikes);
-
-
         }
 
         private void chart4_Click(object sender, EventArgs e)
         {
-
         }
 
         private void chart5_Click(object sender, EventArgs e)
         {
-
         }
 
         public dynamic GetJsonURL(string url)
@@ -324,254 +314,52 @@ namespace WindowsFormsApplication1
             return JsonConvert.DeserializeObject(content);
         }
 
-        public void buildQ1(dynamic json)
-        {
-            List<int> amount = new List<int>();
-
-            List<string> locations = new List<string>();
-
-            for (var i = 0; i < json.Count; i++)
-            {
-                dynamic item = json[i];
-                //Console.WriteLine("Name: {0}, Lifetime: {1}", (string)item.Count, (string)item.Neighborhoods);
-
-                amount.Add((int)item.Count);
-                locations.Add((string)item.Neighborhoods);
-
-
-            }
-
-            chart1.Series[0].Points.DataBindXY(locations, amount);
-            chart1.Series[0].Name = "Bike Containers";
-
-
-        }
-
-        public void buildQ2(dynamic json)
-        {
-
-            List<int> dates = new List<int>();
-
-
-            List<string> months = new List<string>();
-
-            List<int> stolenbikes = new List<int>();
-
-            int count = 0;
-
-            for (var i = 0; i < json.Count; i++)
-            {
-                dynamic item = json[i];
-                //Console.WriteLine("Name: {0}, Lifetime: {1}", (string)item.Month, (string)item.Neighborhoods);
-
-
-                if (i > 0 && json[i - 1].Year != json[i].Year)
-                {
-                    count += 12;
-                    int date = (int)item.Month + count;
-                    dates.Add(date);
-                    stolenbikes.Add((int)item.StolenBikes);
-                    //Console.WriteLine("Date: {0}", date.ToString());
-
-                    int curMonth = (int)item.Month - 1;
-                    months.Add(monthNames[curMonth] + " " + (string)item.Year);
-
-
-                }
-                else
-                {
-                    int date = (int)item.Month + count;
-
-                    int curMonth = (int)item.Month - 1;
-                    months.Add(monthNames[curMonth] +  " " + (string)item.Year);
-
-
-                    dates.Add(date);
-                    stolenbikes.Add((int)item.StolenBikes);
-
-                    //Console.WriteLine("Date: {0}", date.ToString());
-                }
-
-
-                chart3.Series[0].Points.DataBindXY(months, stolenbikes);
-                chart3.Series[0].Name = "Bike Thefts";
-
-
-            }
-
-
-        }
-
-        public void buildQ3(dynamic json)
-        {
-
-            List<int> containers = new List<int>();
-
-            List<int> stolenbikes = new List<int>();
-
-            List<string> monthhap = new List<string>();
-
-
-
-
-
-
-
-
-            List<string> locations = new List<string>();
-
-            for (var i = 0; i < json.Count; i++)
-            {
-                dynamic item = json[i];
-                //Console.WriteLine("Name: {0}", (string)item.Neighbourhood);
-
-                dynamic rows = item.Rows;
-
-                int totalThefts = 0;
-                int trommels = 0;
-
-                stolenbikes = new List<int>();
-                containers = new List<int>();
-                monthhap = new List<string>();
-
-                for (var j = 0; j < rows.Count; j++)
-                {
-                    dynamic data = rows[j];
-
-                    int curMonth = data.Month - 1;
-
-                    stolenbikes.Add((int)data.Thefts);
-                    containers.Add((int)data.Trommels);
-                    monthhap.Add(monthNames[curMonth] + " " + (string)data.Year);
-
-
-                    //Console.WriteLine("Thefts: {0}", (string)data.Thefts);
-                }
-
-                locations.Add((string)item.Neighbourhood);
-
-                cityDataMonth.Add(new CityDataMonth(stolenbikes, containers, monthhap));
-
-                //containers.Add((int)item.Count);
-                //locations.Add((string)item.Neighborhoods);
-
-
-            }
-
-
-
-            listBox1.DataSource = locations;
-
-            chart2.Series[0].Points.DataBindXY(cityDataMonth[0].Months, cityDataMonth[0].Thefts);
-            chart2.Series[0].Name = "Thefts";
-
-            chart2.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
-            chart2.ChartAreas[0].AxisY.MajorGrid.Enabled = false;
-
-
-            chart2.Series[1].Name = "Bike Containers";
-            chart2.Series[1].Points.DataBindXY(cityDataMonth[0].Months, cityDataMonth[0].Trommels);
-
-        }
-        public void buildQ4(dynamic json, dynamic json2)
-        {
-
-            List<int> amountstolen = new List<int>();
-
-            List<int> amountstolen2 = new List<int>();
-
-            List<string> brand = new List<string>();
-            List<string> color = new List<string>();
-
-
-            List<BrandStolen> brandstolen = new List<BrandStolen>();
-            List<ColorStolen> colorstolen = new List<ColorStolen>();
-
-
-
-
-            for (var i = 0; i < json.Count; i++)
-            {
-                dynamic item = json[i];
-
-                brandstolen.Add(new BrandStolen((string)item.Brand, (int)item.Count));
-            }
-
-            for (var j = 0; j < json2.Count; j++)
-            {
-                dynamic item = json2[j];
-
-
-                colorstolen.Add(new ColorStolen((string)item.Color, (int)item.Count));
-
-            }
-
-
-            var top10BrandStolen = brandstolen.OrderByDescending(w => w.Amount).Take(9).ToArray();
-            var brandstolenOther = brandstolen.OrderByDescending(w => w.Amount).Skip(9).Sum(w => w.Amount);
-
-            brand.Add("OTHER");
-            amountstolen.Add(brandstolenOther);
-
-            for (var q = 0; q < top10BrandStolen.Count(); q++)
-            {
-                BrandStolen item = top10BrandStolen[q];
-
-                brand.Add(item.Brand);
-                amountstolen.Add(item.Amount);
-            }
-
-            var top10ColorStolen = colorstolen.OrderByDescending(w => w.Amount).Take(9).ToArray();
-            var colorstolenOther = colorstolen.OrderByDescending(w => w.Amount).Skip(9).Sum(w => w.Amount);
-
-            color.Add("OTHER");
-            amountstolen2.Add(colorstolenOther);
-
-            for (var q = 0; q < top10ColorStolen.Count(); q++)
-            {
-                ColorStolen item = top10ColorStolen[q];
-
-                color.Add(item.Coloro);
-                amountstolen2.Add(item.Amount);
-            }
-
-
-            //chart4.Series[0]["PieLabelStyle"] = "Disabled";
-            //chart5.Series[0]["PieLabelStyle"] = "Disabled";
-
-
-            label1.Text = "Amount of stolen biciclyes by brand in Rotterdam";
-            label2.Text = "Amount of stolen biciclyes by color in Rotterdam";
-
-
-
-            chart4.Series[0].Points.DataBindXY(brand, amountstolen);
-            chart4.Series[0].Name = "Thefts";
-
-            chart5.Series[0].Points.DataBindXY(color, amountstolen2);
-            chart5.Series[0].Name = "Thefts";
-
-            //HttpWebRequest request = (HttpWebRequest)WebRequest.Create(@"http://mysafeinfo.com/api/data?list=englishmonarchs&format=json");
-            //HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            //string content = new StreamReader(response.GetResponseStream()).ReadToEnd();
-            //dynamic json = JsonConvert.DeserializeObject(content);
-            //dynamic s = json[0];
-            //string result = (string)s.nm;
-            //chart2.Series[0].Name = result;
-            //chart2.Show();
-
-            //for (var i = 0; i < json.Count; i++)
-            //{
-            //    dynamic item = json[i];
-            //    Console.WriteLine("Name: {0}, Lifetime: {1}", (string)item.nm, (string)item.yrs);
-            //}
-
-        }
-
+    //    public void buildQ2(dynamic json)
+    //    {
+    //        List<int> dates = new List<int>();
+
+    //        List<string> months = new List<string>();
+
+    //        List<int> stolenbikes = new List<int>();
+
+    //        int count = 0;
+
+    //        for (var i = 0; i < json.Count; i++)
+    //        {
+    //            dynamic item = json[i];
+    //            //Console.WriteLine("Name: {0}, Lifetime: {1}", (string)item.Month, (string)item.Neighborhoods);
+
+    //            if (i > 0 && json[i - 1].Year != json[i].Year)
+    //            {
+    //                count += 12;
+    //                int date = (int)item.Month + count;
+    //                dates.Add(date);
+    //                stolenbikes.Add((int)item.StolenBikes);
+    //                //Console.WriteLine("Date: {0}", date.ToString());
+
+    //                int curMonth = (int)item.Month - 1;
+    //                months.Add(monthNames[curMonth] + " " + (string)item.Year);
+    //            }
+    //            else
+    //            {
+    //                int date = (int)item.Month + count;
+
+    //                int curMonth = (int)item.Month - 1;
+    //                months.Add(monthNames[curMonth] + " " + (string)item.Year);
+
+    //                dates.Add(date);
+    //                stolenbikes.Add((int)item.StolenBikes);
+
+    //                //Console.WriteLine("Date: {0}", date.ToString());
+    //            }
+
+    //            chart3.Series[0].Points.DataBindXY(months, stolenbikes);
+    //            chart3.Series[0].Name = "Bike Thefts";
+    //        }
+    //    }
     }
 
-
-    class CityDataMonth
+    internal class CityDataMonth
     {
         public CityDataMonth(List<int> theft, List<int> trommels, List<string> months)
         {
@@ -584,7 +372,8 @@ namespace WindowsFormsApplication1
         public List<int> Trommels { get; set; }
         public List<string> Months { get; set; }
     }
-    class BrandStolen
+
+    internal class BrandStolen
     {
         public BrandStolen(string brand, int amount)
         {
@@ -595,7 +384,8 @@ namespace WindowsFormsApplication1
         public string Brand { get; set; }
         public int Amount { get; set; }
     }
-    class ColorStolen
+
+    internal class ColorStolen
     {
         public ColorStolen(string color, int amount)
         {
@@ -606,6 +396,4 @@ namespace WindowsFormsApplication1
         public string Coloro { get; set; }
         public int Amount { get; set; }
     }
-
-
 }
