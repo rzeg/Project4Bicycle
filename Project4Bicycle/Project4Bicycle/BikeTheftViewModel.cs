@@ -13,10 +13,10 @@ namespace Project4Bicycle
 {
 	public class BikeTheftViewModel
 	{
-		public ObservableCollection<BikeTheft> BikeThefts { get; } = new ObservableCollection<BikeTheft>();
-		public ObservableCollection<string> brands { get; } = new ObservableCollection<string>();
-		public ObservableCollection<string> colors { get; } = new ObservableCollection<string>();
-		public ObservableCollection<string> neighbourhoods { get; } = new ObservableCollection<string>();
+		public ObservableCollection<BikeTheft> BikeThefts = new ObservableCollection<BikeTheft>();
+		public ObservableCollection<string> brands = new ObservableCollection<string>();
+		public ObservableCollection<string> colors = new ObservableCollection<string>();
+		public ObservableCollection<string> neighbourhoods = new ObservableCollection<string>();
 
 		HashSet<string> brandsHash = new HashSet<string>();
 		HashSet<string> colorsHash = new HashSet<string>();

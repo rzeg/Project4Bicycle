@@ -24,6 +24,8 @@ namespace WindowsFormsApplication1
 
         List<CityDataMonth> cityDataMonth = new List<CityDataMonth>();
 
+        List<string> neighbourhood2 = new List<string>();
+
         string[] monthNames = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthNames;
 
         public Form1()
@@ -104,12 +106,29 @@ namespace WindowsFormsApplication1
             chart1.Series[0].Name = "Bike Containers";
 
         }
+        public async void GenerateGraph3()
+        {
+
+            Q3Generator generator = new Q3Generator();
+
+            Project4Bicycle.Models.Q3Model bg = generator.GenerateGraphModel();
+
+
+
+
+            //foreach (string neighbourhood in generator.GetNeighbourhoodList())
+            //    neighbourhood2.Add(neighbourhood);
+
+            //generator.SetNeighbourhood(neighbourhood2[0]);
+
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
 
             GenerateGraph();
             GenerateGraph2();
+            GenerateGraph3();
 
             //dynamic question1 = GetJsonURL("http://145.24.222.220/v2/questions/q1");
 
