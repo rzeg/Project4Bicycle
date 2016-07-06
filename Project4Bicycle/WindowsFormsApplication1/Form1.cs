@@ -113,9 +113,9 @@ namespace WindowsFormsApplication1
 
             //dynamic question1 = GetJsonURL("http://145.24.222.220/v2/questions/q1");
 
-            dynamic question2 = GetJsonURL("http://145.24.222.220/v2/questions/q2");
+            //-dynamic question2 = GetJsonURL("http://145.24.222.220/v2/questions/q2");
 
-            dynamic question3 = GetJsonURL("http://145.24.222.220/v2/questions/q3");
+            //-dynamic question3 = GetJsonURL("http://145.24.222.220/v2/questions/q3");
 
             //dynamic question4a = GetJsonURL("http://145.24.222.220/v2/questions/q4a");
 
@@ -123,8 +123,8 @@ namespace WindowsFormsApplication1
 
 
             //buildQ1(question1);
-            buildQ2(question2);
-            buildQ3(question3);
+            //buildQ2(question2);
+            //buildQ3(question3);
             //buildQ4(question4a, question4b);
 
 
