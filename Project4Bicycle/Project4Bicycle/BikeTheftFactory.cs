@@ -61,12 +61,17 @@ namespace Project4Bicycle
 
 			bikeTheft.Street = values[9];
 
-            if (values[11] != "")
-            {
+			if (values[11] != "")
+			{
 				//bikeTheft.Month = Convert.ToDateTime(values[11]).Month;//Int32.Parse(values[11].Split('/')[1]);
-                bikeTheft.Month = Int32.Parse(values[11].Split('/')[1]);
-            }
-                		
+				bikeTheft.Month = Int32.Parse(values[11].Split('/')[1]);
+				bikeTheft.Year = Int32.Parse(values[11].Split('/')[2]);
+			}
+			else {
+				bikeTheft.Month = 1;
+				bikeTheft.Year = 2013;
+			}
+
 			bikeTheft.Keyword = values[20];
 			bikeTheft.Object = values[21];
 			bikeTheft.Brand = values[22];
