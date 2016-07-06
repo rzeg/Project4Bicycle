@@ -105,19 +105,23 @@ namespace Project4Bicycle
             {
                 //Retrieve GPS coordinates
                 var pos = await locator1.GetPositionAsync(timeoutMilliseconds: 15000);
-                if(pos.Longitude != null || pos.Latitude != null)
+                if(pos.Longitude != 0.0D || pos.Latitude != 0.0D)//0.0D to check if empty, double can't be 'null'.
                 {
                     position = new Position(pos.Latitude, pos.Longitude);
 
-                    //Get addresses makes the app crash, needs to be fixed.
-                    //var possibleAddresses = await geoCoder.GetAddressesForPositionAsync(position);
-                    //foreach (var address in possibleAddresses)
-                    //    Debug.WriteLine(address);
+                  //Get addresses makes the app crash, needs to be fixed.
+                  var possibleAddresses = await geoCoder.GetAddressesForPositionAsync(position);
+                  
+                  //foreach (var address in possibleAddresses)
+                  //{
+                  //  Debug.WriteLine(address);
+                  //}
+                    
                 }
                 else
                 {
                     //GPS is unavailable
-                    await DisplayAlert("Time-out", "We could not retrieve your location on-time, please try again.", "OK");
+                    await DisplayAlert("Time-out", "We could not retrieve your location on time, please try again.", "OK");
                 }
                 
             }
