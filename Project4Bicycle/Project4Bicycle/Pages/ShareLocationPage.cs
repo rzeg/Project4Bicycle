@@ -111,13 +111,15 @@ namespace Project4Bicycle
 
                   //Get addresses makes the app crash, needs to be fixed.
                   var possibleAddresses = await geoCoder.GetAddressesForPositionAsync(position);
-                  
+                  //Debug.WriteLine(possibleAddresses);
+                  //if (System.Text.Encoding.UTF8.GetBytes(possibleAddresses.City.ToCharArray())[0] == 226 && result.City.Contains(" ")) { result.City = result.City.Substring(result.City.IndexOf(" ")).Trim(); }
+
                   //foreach (var address in possibleAddresses)
                   //{
                   //  Debug.WriteLine(address);
                   //}
-                    
-                }
+
+        }
                 else
                 {
                     //GPS is unavailable

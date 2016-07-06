@@ -72,15 +72,10 @@ namespace MapOverlay.iOS
 				{
 					foreach (var position in ShapeCoordinates)
 					{
-						var circleOverlay = MKCircle.Circle(new CoreLocation.CLLocationCoordinate2D(position.Latitude, position.Longitude), 100);
+						var circleOverlay = MKCircle.Circle(new CoreLocation.CLLocationCoordinate2D(position.Latitude, position.Longitude), 1000);
 						nativeMap.AddOverlay(circleOverlay);
-
 					}
-
-
 				}
-
-
 			}
 		}
 
