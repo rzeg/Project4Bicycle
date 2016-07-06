@@ -6,6 +6,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -29,10 +30,10 @@ namespace Project4Bicycle
 
         private async Task GetStolenBicyclesAsync()
         {
-            string URL = "http://puu.sh/pLgJy/b59c159338.csv";
-            var client = new HttpClient();
-            var responseStream = await client.GetStreamAsync(URL);
-            var reader = new StreamReader(responseStream);
+            var assembly = typeof(BikeTheftViewModel).GetTypeInfo().Assembly;
+            Stream stream = assembly.GetManifestResourceStream("Project4Bicycle.Data.b59c159338.csv");
+            var reader = new StreamReader(stream);
+
             bool skipRow = true;
             string incidentNeighboorhood = "Unknown";
             string incidentMonth = "Unknown";
