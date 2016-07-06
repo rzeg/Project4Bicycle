@@ -10,6 +10,7 @@ namespace Project4Bicycle
 		public string Name { get; set; }
 		public int Count { get { return BikeColors.Count; } }
 
+
 		public void AddColor(string color)
 		{
 			BikeColors.Add(color);

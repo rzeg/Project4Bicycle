@@ -9,6 +9,7 @@ namespace Project4Bicycle
 		public string Name { get; set; }
 		public Position NE { get; set;}
 		public Position ZW { get; set;}
+		public List<Position> Positions = new List<Position>();
 		public int Count { get { return Neighbourhoods.Count; } }
 
 

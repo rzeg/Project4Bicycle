@@ -13,6 +13,7 @@ namespace Project4Bicycle
         public MainMenu()
         {
             Title = "Main menu";
+            
             StolenPerMonthPage SPMP;
             ContainerOverviewPage COP;
             PieChartPage PCP;

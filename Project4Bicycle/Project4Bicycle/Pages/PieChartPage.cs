@@ -18,7 +18,7 @@ namespace Project4Bicycle
 
 			var navigationPageColors = new ColorPieChartPage();
 			navigationPageColors.Title = "Colours";
-				
+			
 			Children.Add(navigationPageBrands);
 			Children.Add(navigationPageColors);
         }

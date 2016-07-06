@@ -11,6 +11,8 @@ namespace Project4Bicycle
 	{
 
 		List<NeighbourhoodTheft> neighbourhoods = new List<NeighbourhoodTheft>();
+		Geocoder geoCoder = new Geocoder();
+
 
 		public NeighbourhoodTheftsGenerator()
 		{
@@ -19,44 +21,48 @@ namespace Project4Bicycle
 
 		public async Task<List<NeighbourhoodTheft>> GenerateNeighbourhoods()
 		{
-			BikeTheftNeighbourhoodsModel btnm = new BikeTheftNeighbourhoodsModel();
+			//BikeTheftNeighbourhoodsModel btnm = new BikeTheftNeighbourhoodsModel();
 			BikeTheftViewModel bvm = new BikeTheftViewModel();
-			List<Position> positions = new List<Position>();
-			Geocoder geoCoder = new Geocoder();
+			//List<Position> positions = new List<Position>();
 
 			await bvm.GetBikeTheftsAsync();
 
 			foreach (var neighbourhood in bvm.neighbourhoods)
 			{
-
 				NeighbourhoodTheft neighbourhoodTheft = new NeighbourhoodTheft();
 				neighbourhoodTheft.Name = neighbourhood;
-				var possibleAddresses = await geoCoder.GetPositionsForAddressAsync("Rotterdam " + neighbourhood);
-
-				int i = 0;
-				foreach (var address in possibleAddresses)
-				{
-					if (i == 0)
-						neighbourhoodTheft.NE = address;
-					else
-						neighbourhoodTheft.ZW = address;
-					i++;
-				}
+	
 
 				neighbourhoods.Add(neighbourhoodTheft);
 			}
 
 			foreach (BikeTheft bikeTheft in bvm.BikeThefts)
 			{
+
 				NeighbourhoodTheft neighbourhoodTheft = neighbourhoods.Find(x => x.Name.Contains(bikeTheft.Neighbourhood));
-				if (neighbourhoodTheft.ZW.Latitude == 0)
+
+
+				if (neighbourhoodTheft.Positions.Count == 0)
 				{
-					var possibleAddresses = await geoCoder.GetPositionsForAddressAsync(bikeTheft.City + " " + bikeTheft.Street);
+					var possibleAddresses = await geoCoder.GetPositionsForAddressAsync(bikeTheft.City);
+
 					foreach (var address in possibleAddresses)
 					{
-						neighbourhoodTheft.ZW = address;
+						neighbourhoodTheft.Positions.Add(address);
 					}
 				}
+
+
+
+				if (neighbourhoodTheft.Positions.Count < 10)
+				{
+					//var possibleAddresses2 = await geoCoder.GetPositionsForAddressAsync(neighbourhoodTheft.Name + ", " + bikeTheft.Street);
+					//foreach (var address in possibleAddresses2)
+					//{
+					//	neighbourhoodTheft.Positions.Add(address);
+					//}
+				}
+
 				neighbourhoodTheft.AddNeighbourhood(bikeTheft.Neighbourhood);
 			}
 
