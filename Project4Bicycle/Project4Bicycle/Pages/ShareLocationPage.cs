@@ -10,6 +10,7 @@ using Xamarin.Forms.Maps;
 using System.Collections.Generic;
 
 using Xamarin.Forms;
+using System.Linq;
 
 namespace Project4Bicycle
 {
@@ -83,6 +84,16 @@ namespace Project4Bicycle
 
       timePicker = new TimePicker();
 
+      Button deleteReminder = new Button
+      {
+        Text = "Remove reminder",
+        Font = Font.SystemFontOfSize(NamedSize.Large),
+        BorderWidth = 1,
+        HorizontalOptions = LayoutOptions.Center,
+        VerticalOptions = LayoutOptions.CenterAndExpand
+      };
+      deleteReminder.Clicked += onDeleteButtonClicked;
+
       Picker picker = new Picker
       {
         Title = "Calendar",
@@ -98,6 +109,7 @@ namespace Project4Bicycle
           reminderButton,
           locationLabel,
           reminderLabel,
+          deleteReminder,
           picker,
           datePicker,
           timePicker
@@ -125,22 +137,11 @@ namespace Project4Bicycle
         {
           position = new Position(pos.Latitude, pos.Longitude);
 
-          //Get addresses makes the app crash, needs to be fixed.
+          //Works like a charm, sometimes.
           var possibleAddresses = await geoCoder.GetAddressesForPositionAsync(position);
-          foreach (var address in possibleAddresses)
-          {
-            Debug.WriteLine(address);
-            locationLabel.Text += address + "\n";
-          }
 
+          locationLabel.Text = possibleAddresses.First();
 
-          //Debug.WriteLine(possibleAddresses);
-          //if (System.Text.Encoding.UTF8.GetBytes(possibleAddresses.City.ToCharArray())[0] == 226 && result.City.Contains(" ")) { result.City = result.City.Substring(result.City.IndexOf(" ")).Trim(); }
-            
-          //foreach (var address in possibleAddresses)
-          //{
-          //  Debug.WriteLine(address);
-          //}
 
         }
         else
@@ -161,19 +162,59 @@ namespace Project4Bicycle
       Debug.WriteLine("set event");
     }
 
-    void OnReminderButtonClicked(object sender, EventArgs e)
+    async void OnReminderButtonClicked(object sender, EventArgs e)
+    {
+      geoCoder = new Geocoder();
+
+      var locator1 = CrossGeolocator.Current;
+      if (!locator1.IsGeolocationEnabled)
+      {
+        //GPS is unavailable
+        await DisplayAlert("No GPS", "We could not retrieve your location, please make sure you have GPS enabled.", "OK");
+      }
+      else
+      {
+        //Retrieve GPS coordinates
+        var pos = await locator1.GetPositionAsync(timeoutMilliseconds: 30000);
+        if (pos.Longitude != 0.0D || pos.Latitude != 0.0D)//0.0D to check if empty, double can't be 'null'.
+        {
+          position = new Position(pos.Latitude, pos.Longitude);
+
+          //Works like a charm, sometimes.
+          var possibleAddresses = await geoCoder.GetAddressesForPositionAsync(position);
+
+          locationLabel.Text = possibleAddresses.First();
+
+          ICalendar calendar = DependencyService.Get<ICalendar>();
+
+          datePicker.Date = datePicker.Date + timePicker.Time;
+          //position moet een echte position worden dus.
+          calendar.SetReminder(possibleAddresses.First() + " at time:  " + (datePicker.Date + timePicker.Time).ToString());
+          Debug.WriteLine(position + " at Time:  " + (datePicker.Date + timePicker.Time).ToString());
+
+          string reminderText = calendar.getReminder().ToString();
+          reminderLabel.Text = reminderText;
+
+
+          //Debug.WriteLine("set reminder");
+
+
+        }
+        else
+        {
+          //GPS is unavailable
+          await DisplayAlert("Time-out", "We could not retrieve your location on time, please try again.", "OK");
+        }
+
+      }
+     
+    }
+    void onDeleteButtonClicked(object sender, EventArgs e)
     {
       ICalendar calendar = DependencyService.Get<ICalendar>();
-
-      datePicker.Date = datePicker.Date + timePicker.Time;
-      //position moet een echte position worden dus.
-      calendar.SetReminder(position + " at Time:  " + (datePicker.Date + timePicker.Time).ToString());
-      Debug.WriteLine(position + " at Time:  " + (datePicker.Date + timePicker.Time).ToString());
+      calendar.SetReminder("");
       string reminderText = calendar.getReminder().ToString();
       reminderLabel.Text = reminderText;
-
-
-      //Debug.WriteLine("set reminder");
     }
   }
 }
