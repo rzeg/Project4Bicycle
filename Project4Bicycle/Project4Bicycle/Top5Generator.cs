@@ -20,14 +20,17 @@ namespace Project4Bicycle
         
         }
 
+        //async methode om neighbourhoods met containers te genereren.
         public async Task<BikeGraphModel> GenerateNeighbourhoods()
         {
+            //Een nieuwe bikegraphmodel aanmaken die gebruikt wordt om data in de grafiek te zetten
             BikeGraphModel bgm = new BikeGraphModel();
             BikeContainerViewModel vm = new BikeContainerViewModel();
             await vm.GetHaltesAsync();
             ObservableCollection<BikeContainer> containers = vm.BikeContainers;
             foreach (BikeContainer container in containers)
             {
+                //Als er een unieke neighbourhood naam is gevonden wordt deze aan de hashset toegevoegd
                 if(neighbourhoods.Add(container.Neighbourhood))
                 {
                     Neighbourhood neighb = new Neighbourhood();
@@ -35,14 +38,18 @@ namespace Project4Bicycle
                     realNeighbourhoods.Add(neighb);
                 }
 
+                //Hier wordt de bikecontainer toegevoegd aan de bijbehorende neighbourhood
                 Neighbourhood nb = realNeighbourhoods.Find(x => x.Name.Contains(container.Neighbourhood));
                 nb.AddContainer(container);
             }
 
+            //De top 5 selecteren van de neighbourhoods.
             var r = realNeighbourhoods.OrderByDescending(x => x.BikeContainerCount).Take(5);
 
+            //Door de top 5 loopen en toevoegen aan het model.
             foreach (Neighbourhood nb in r)
             {
+                //Naam afkorten anders past deze niet op de grafiek.
                 if(nb.Name.Length > 10)
                     nb.Name = nb.Name.Substring(0, 10);
                 bgm.AddData(nb);
