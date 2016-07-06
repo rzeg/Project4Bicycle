@@ -6,6 +6,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -31,54 +32,85 @@ namespace Project4Bicycle
 
         private async Task GetStolenBicyclesAsync()
         {
-            //string URL = "http://puu.sh/pLgJy/b59c159338.csv";
-            //var client = new HttpClient();
-            //var responseStream = await client.GetStreamAsync(URL);
-            //var reader = new StreamReader(responseStream);
-			var assembly = typeof(BikeTheftViewModel).GetTypeInfo().Assembly;
-			Stream stream = assembly.GetManifestResourceStream("Project4Bicycle.Data.b59c159338.csv");
-			var reader = new StreamReader(stream);
+            var assembly = typeof(BikeTheftViewModel).GetTypeInfo().Assembly;
+            Stream stream = assembly.GetManifestResourceStream("Project4Bicycle.Data.b59c159338.csv");
+            var reader = new StreamReader(stream);
 
-			BikeTheftFactory factory = new BikeTheftFactory(reader);
-			BikeTheft bikeTheft;
+            bool skipRow = true;
+            string incidentNeighboorhood = "Unknown";
+            string incidentMonth = "Unknown";
 
-			string incidentNeighboorhood = "Unknown";
-			string incidentMonth = "Unknown";
-			incidentMonthList.AddRange(months);
-			while (factory.HasNext())
-			{
-				bikeTheft = factory.GetCurrent();
-				incidentMonth = CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(bikeTheft.Month);
-				incidentMonth = DateTime.ParseExact(incidentMonth, "MMMM", CultureInfo.InvariantCulture).ToString("MMM");
-				incidentNeighboorhood = bikeTheft.Neighbourhood;
+            incidentMonthList.AddRange(months);
 
-				switch (incidentMonth)
-				{
-					case "mrt":
-						incidentMonth = "mar";
-						break;
+            int cnt = 0;
+            while (!reader.EndOfStream && cnt <= 20500)
+            {
+                try
+                {
+                    cnt++;
+                    var line = reader.ReadLine();
+                    string[] values = new string[] { };
+                    string[] tempIncidentDate = { };
+                    if (!skipRow && line.Length > 150 && (line.Contains("\t") || line.Contains(",")))
+                    {
+                        //Some lines are seperated with tabs but somehow also have 1 comma, we look for at least 3 comma's to avoid this problem.
+                        if (line.Split(',').Length > 3) 
+                        {
+                            //Split by looking for ',' and split the dates by using '/'
+                            values = line.Split(',');
+                            tempIncidentDate = values[11].Split('/');
+                        }
+                        else
+                        {
+                            //Split by looking for '\t' and split the dates by using '-'
+                            values = line.Split('\t');
+                            tempIncidentDate = values[11].Split('-');
+                        }
+                        incidentNeighboorhood = values[8];
+                        //Convert the month number to the short name variant (Eg. 01 = Jan)
+                        incidentMonth = CultureInfo.InvariantCulture.DateTimeFormat.GetMonthName(Convert.ToInt32(tempIncidentDate[1]));
+                        incidentMonth = DateTime.ParseExact(incidentMonth, "MMMM", CultureInfo.InvariantCulture).ToString("MMM");
 
-					case "mei":
-						incidentMonth = "may";
-						break;
-					case "okt":
-						incidentMonth = "oct";
-						break;
-				}
+                        switch (incidentMonth)
+                        {
+                            case "mrt":
+                                incidentMonth = "mar";
+                                break;
 
-				//Find the corresponding month and add the amount to this month
-				foreach (string month in incidentMonthList)
-				{
-					if (month == UpperFirst(incidentMonth))
-					{
-						//HighTemperature.Add(new ChartDataPoint(month, randomDiefstallen++));
-						int index = Array.IndexOf(months, month);
-						monthThefts[index]++; //Add 1 incident to the corresponding month
-						break;
-					}
-				}
-			}
-			
+                            case "mei":
+                                incidentMonth = "may";
+                                break;
+                            case "okt":
+                                incidentMonth = "oct";
+                                break;
+                        }
+
+                        //Find the corresponding month and add the amount to this month
+                        foreach (string month in incidentMonthList)
+                        {
+                            if (month == UpperFirst(incidentMonth))
+                            {
+                                //HighTemperature.Add(new ChartDataPoint(month, randomDiefstallen++));
+                                int index = Array.IndexOf(months, month);
+                                monthThefts[index]++; //Add 1 incident to the corresponding month
+                                break;
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        //Skip the first row to avoid counting the columnnames.
+                        skipRow = false;
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+
+>>>>>>> 74d93e7de1ade2bdd68e90cdced87931bbfe6709
         }
 
         private async Task FillData()

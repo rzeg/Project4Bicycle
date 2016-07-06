@@ -13,142 +13,149 @@ using Xamarin.Forms;
 
 namespace Project4Bicycle
 {
-	public class ShareLocationPage : ContentPage
-	{
-		Label locationLabel;
-		DatePicker datePicker;
-		TimePicker timePicker;
-		Position position;
-		//string position;
-		Geocoder geoCoder;
+  public class ShareLocationPage : ContentPage
+  {
+    Label locationLabel;
+    DatePicker datePicker;
+    TimePicker timePicker;
+    Position position;
+    //string position;
+    Geocoder geoCoder;
 
-		public ShareLocationPage()
-		{
-			Button button = new Button
-			{
-				Text = "Get Location!",
-				Font = Font.SystemFontOfSize(NamedSize.Large),
-				BorderWidth = 1,
-				HorizontalOptions = LayoutOptions.Center,
-				VerticalOptions = LayoutOptions.CenterAndExpand
-			};
-			button.Clicked += OnButtonClicked;
+    public ShareLocationPage()
+    {
 
-			Button calendarButton = new Button
-			{
-				Text = "Insert into calendar!",
-				Font = Font.SystemFontOfSize(NamedSize.Large),
-				BorderWidth = 1,
-				HorizontalOptions = LayoutOptions.Center,
-				VerticalOptions = LayoutOptions.CenterAndExpand
-			};
-			calendarButton.Clicked += OnCalendarButtonClicked;
+      Button button = new Button
+      {
+        Text = "Get Location!",
+        Font = Font.SystemFontOfSize(NamedSize.Large),
+        BorderWidth = 1,
+        HorizontalOptions = LayoutOptions.Center,
+        VerticalOptions = LayoutOptions.CenterAndExpand
+      };
+      button.Clicked += OnButtonClicked;
 
-			Button reminderButton = new Button
-			{
-				Text = "Insert into reminder!",
-				Font = Font.SystemFontOfSize(NamedSize.Large),
-				BorderWidth = 1,
-				HorizontalOptions = LayoutOptions.Center,
-				VerticalOptions = LayoutOptions.CenterAndExpand
-			};
-			reminderButton.Clicked += OnReminderButtonClicked;
+      Button calendarButton = new Button
+      {
+        Text = "Insert into calendar!",
+        Font = Font.SystemFontOfSize(NamedSize.Large),
+        BorderWidth = 1,
+        HorizontalOptions = LayoutOptions.Center,
+        VerticalOptions = LayoutOptions.CenterAndExpand
+      };
+      calendarButton.Clicked += OnCalendarButtonClicked;
 
-			locationLabel = new Label
-			{
-				Text = "Location",
-				Font = Font.SystemFontOfSize(NamedSize.Large),
-				HorizontalOptions = LayoutOptions.Center,
-				VerticalOptions = LayoutOptions.CenterAndExpand
-			};
+      Button reminderButton = new Button
+      {
+        Text = "Insert into reminder!",
+        Font = Font.SystemFontOfSize(NamedSize.Large),
+        BorderWidth = 1,
+        HorizontalOptions = LayoutOptions.Center,
+        VerticalOptions = LayoutOptions.CenterAndExpand
+      };
+      reminderButton.Clicked += OnReminderButtonClicked;
 
-			datePicker = new DatePicker
-			{
-				Format = "D",
-				VerticalOptions = LayoutOptions.CenterAndExpand
-			};
+      locationLabel = new Label
+      {
+        Text = "Location",
+        Font = Font.SystemFontOfSize(NamedSize.Large),
+        HorizontalOptions = LayoutOptions.Center,
+        VerticalOptions = LayoutOptions.CenterAndExpand
+      };
 
-			timePicker = new TimePicker();
+      datePicker = new DatePicker
+      {
+        Format = "D",
+        VerticalOptions = LayoutOptions.CenterAndExpand
+      };
 
-			Picker picker = new Picker
-			{
-				Title = "Calendar",
-				VerticalOptions = LayoutOptions.CenterAndExpand
-			};
+      timePicker = new TimePicker();
 
-			Content = new StackLayout
-			{
-				Children = {
-					new Label { Text = "Hello ContentPage" },
-					button,
-					calendarButton,
-					reminderButton,
-					locationLabel,
-					picker,
-					datePicker,
-					timePicker
-				}
-			};
-		}
+      Picker picker = new Picker
+      {
+        Title = "Calendar",
+        VerticalOptions = LayoutOptions.CenterAndExpand
+      };
 
-		async void OnButtonClicked(object sender, EventArgs e)
-		{
-			geoCoder = new Geocoder();
+      Content = new StackLayout
+      {
+        Children = {
+          new Label { Text = "Hello ContentPage" },
+          button,
+          calendarButton,
+          reminderButton,
+          locationLabel,
+          picker,
+          datePicker,
+          timePicker
+        }
+      };
+    }
 
-			var locator1 = CrossGeolocator.Current;
-            if(!locator1.IsGeolocationEnabled)
-            {
-                //GPS is unavailable
-                await DisplayAlert("No GPS", "We could not retrieve your location, please make sure you have GPS enabled.", "OK");
-            }
-            else
-            {
-                //Retrieve GPS coordinates
-                var pos = await locator1.GetPositionAsync(timeoutMilliseconds: 15000);
-                if(pos.Longitude != 0.0D || pos.Latitude != 0.0D)//0.0D to check if empty, double can't be 'null'.
-                {
-                    position = new Position(pos.Latitude, pos.Longitude);
+    async void OnButtonClicked(object sender, EventArgs e)
+    {
+      geoCoder = new Geocoder();
 
-                  //Get addresses makes the app crash, needs to be fixed.
-                  var possibleAddresses = await geoCoder.GetAddressesForPositionAsync(position);
-                  //Debug.WriteLine(possibleAddresses);
-                  //if (System.Text.Encoding.UTF8.GetBytes(possibleAddresses.City.ToCharArray())[0] == 226 && result.City.Contains(" ")) { result.City = result.City.Substring(result.City.IndexOf(" ")).Trim(); }
+      var locator1 = CrossGeolocator.Current;
+      if (!locator1.IsGeolocationEnabled)
+      {
+        //GPS is unavailable
+        await DisplayAlert("No GPS", "We could not retrieve your location, please make sure you have GPS enabled.", "OK");
+      }
+      else
+      {
+        //Retrieve GPS coordinates
+        var pos = await locator1.GetPositionAsync(timeoutMilliseconds: 15000);
+        if (pos.Longitude != 0.0D || pos.Latitude != 0.0D)//0.0D to check if empty, double can't be 'null'.
+        {
+          position = new Position(pos.Latitude, pos.Longitude);
 
-                  //foreach (var address in possibleAddresses)
-                  //{
-                  //  Debug.WriteLine(address);
-                  //}
+          //Get addresses makes the app crash, needs to be fixed.
+          var possibleAddresses = await geoCoder.GetAddressesForPositionAsync(position);
+          foreach (var address in possibleAddresses)
+          {
+            Debug.WriteLine(address);
+            //reverseGeocodedOutputLabel.Text += address + "\n";
+          }
+
+          //Debug.WriteLine(possibleAddresses);
+          //if (System.Text.Encoding.UTF8.GetBytes(possibleAddresses.City.ToCharArray())[0] == 226 && result.City.Contains(" ")) { result.City = result.City.Substring(result.City.IndexOf(" ")).Trim(); }
+
+          //foreach (var address in possibleAddresses)
+          //{
+          //  Debug.WriteLine(address);
+          //}
 
         }
-                else
-                {
-                    //GPS is unavailable
-                    await DisplayAlert("Time-out", "We could not retrieve your location on time, please try again.", "OK");
-                }
-                
-            }
-		}
+        else
+        {
+          //GPS is unavailable
+          await DisplayAlert("Time-out", "We could not retrieve your location on time, please try again.", "OK");
+        }
 
-		void OnCalendarButtonClicked(object sender, EventArgs e)
-		{
-			ICalendar calendar = DependencyService.Get<ICalendar>();
+      }
+    }
 
-			calendar.SetEvent(datePicker.Date + timePicker.Time, "Fiets ophalen", "Locatie van fiets: " + position);
-			Debug.WriteLine("Fiets ophalen", "Locatie van fiets: " + position);
-			Debug.WriteLine("set event");
-		}
+    void OnCalendarButtonClicked(object sender, EventArgs e)
+    {
+      ICalendar calendar = DependencyService.Get<ICalendar>();
 
-		void OnReminderButtonClicked(object sender, EventArgs e)
-		{
-			ICalendar calendar = DependencyService.Get<ICalendar>();
+      calendar.SetEvent(datePicker.Date + timePicker.Time, "Fiets ophalen", "Locatie van fiets: " + position);
+      Debug.WriteLine("Fiets ophalen", "Locatie van fiets: " + position);
+      Debug.WriteLine("set event");
+    }
 
-			datePicker.Date = datePicker.Date + timePicker.Time;
+    void OnReminderButtonClicked(object sender, EventArgs e)
+    {
+      ICalendar calendar = DependencyService.Get<ICalendar>();
 
-			calendar.SetReminder(position + " at Time:  " + (datePicker.Date + timePicker.Time).ToString());
-			Debug.WriteLine(position + " at Time:  " + (datePicker.Date + timePicker.Time).ToString());
-			//Debug.WriteLine("set reminder");
-		}
-	}
+      datePicker.Date = datePicker.Date + timePicker.Time;
+
+      calendar.SetReminder(position + " at Time:  " + (datePicker.Date + timePicker.Time).ToString());
+      Debug.WriteLine(position + " at Time:  " + (datePicker.Date + timePicker.Time).ToString());
+      //Debug.WriteLine("set reminder");
+    }
+  }
 }
 
 
