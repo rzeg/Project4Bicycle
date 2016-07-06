@@ -28,9 +28,8 @@ namespace Project4Bicycle.Droid
 
 			if (e.NewElement != null)
 			{
-				Console.WriteLine("test");
 				var formsMap = (CustomMap)e.NewElement;
-
+				circles = new List<CustomCircle>();
 				foreach (var ShapeCoordinates in formsMap.ShapeNeighbourhood)
 				{
 					foreach (var position in ShapeCoordinates)

@@ -126,21 +126,13 @@ namespace Project4Bicycle
           position = new Position(pos.Latitude, pos.Longitude);
 
           //Get addresses makes the app crash, needs to be fixed.
-<<<<<<< HEAD
           var possibleAddresses = await geoCoder.GetAddressesForPositionAsync(position);
           foreach (var address in possibleAddresses)
           {
             Debug.WriteLine(address);
             locationLabel.Text += address + "\n";
           }
-=======
-          //var possibleAddresses = await geoCoder.GetAddressesForPositionAsync(position);
-          //foreach (var address in possibleAddresses)
-          //{
-          //  Debug.WriteLine(address);
-          //  //reverseGeocodedOutputLabel.Text += address + "\n";
-          //}
->>>>>>> 0926de658a793bccd19ca8eccc2d98b2d0ad2bca
+
 
           //Debug.WriteLine(possibleAddresses);
           //if (System.Text.Encoding.UTF8.GetBytes(possibleAddresses.City.ToCharArray())[0] == 226 && result.City.Contains(" ")) { result.City = result.City.Substring(result.City.IndexOf(" ")).Trim(); }
