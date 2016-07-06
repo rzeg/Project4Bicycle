@@ -18,6 +18,7 @@ namespace Project4Bicycle
 		public string Color{ get; set; }
 		public string Neighbourhood { get; set; }
 		public int Month { get; set; }
+		public int Year { get; set; }
 	}
 }
 
