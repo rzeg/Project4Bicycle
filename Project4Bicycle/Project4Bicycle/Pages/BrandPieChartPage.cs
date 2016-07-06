@@ -26,7 +26,7 @@ namespace Project4Bicycle
 			BikeBrandsGraphModel bg = await generator.GenerateBrands();
 
 			brandChart.Legend = new ChartLegend();
-			brandChart.Legend.Title.Text = "Colors";
+			brandChart.Legend.Title.Text = "Most stolen brands (Swipe right-to-left to see colours)";
 
 
 			brandChart.Series.Add(new PieSeries()
@@ -35,7 +35,9 @@ namespace Project4Bicycle
 				XBindingPath = "Name",
 				YBindingPath = "Count",
 				EnableTooltip = true,
-				EnableSmartLabels = true,
+                EnableAnimation = true,
+                AnimationDuration = 3,
+                EnableSmartLabels = true
 			});
 		}
 	}

@@ -9,19 +9,16 @@ using Xamarin.Forms;
 
 namespace Project4Bicycle
 {
-	class PieChartPage : TabbedPage
-	{
-		//SfChart colorChart = new SfChart();
-		//SfChart brandChart = new SfChart();
-
+	class PieChartPage : CarouselPage
+    {
         public PieChartPage()
         {
 			var navigationPageBrands = new BrandPieChartPage();
 			navigationPageBrands.Title = "Brands";
 
 			var navigationPageColors = new ColorPieChartPage();
-			navigationPageColors.Title = "Colors";
-
+			navigationPageColors.Title = "Colours";
+			
 			Children.Add(navigationPageBrands);
 			Children.Add(navigationPageColors);
         }

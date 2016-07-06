@@ -7,6 +7,7 @@ using System.IO;
 using System.Net;
 using Xamarin.Forms.Maps;
 using System.Globalization;
+using System.Reflection;
 
 namespace Project4Bicycle
 {
@@ -22,18 +23,17 @@ namespace Project4Bicycle
 
 		public async Task GetHaltesAsync()
 		{
-			//RetDatabase database = new RetDatabase();
+            //RetDatabase database = new RetDatabase();
 
-			//			Reset database
-			//			database.Drop();
+            //			Reset database
+            //			database.Drop();
 
 
-			//if (database.Count())
-			//{
-				string requestUri = "http://puu.sh/pxxc2.csv";
-				var client = new HttpClient();
-				var responseStream = await client.GetStreamAsync(requestUri);
-				var reader = new StreamReader(responseStream);
+            //if (database.Count())
+            //{
+                var assembly = typeof(BikeContainerViewModel).GetTypeInfo().Assembly;
+                Stream stream = assembly.GetManifestResourceStream("Project4Bicycle.Data.pxxc2.csv");
+                var reader = new StreamReader(stream);
 				bool first = true;
 
 				//FindDuplicates dublicator = new FindDuplicates();

@@ -6,6 +6,5 @@ Hillegersberg	Schiebroek	Hillegersberg-Noord	Hillegersberg-Zuid	Terbregge	Molenl
 Kralingen/Crooswijk	Rubroek	Nieuw-Crooswijk	Oud-Crooswijk	Kralingen-West	Kraling-Oost	Kralingse Bos	De Esch	Struisenburg
 Feijenoord	Feijenoord	NoorderEiland	Vreewijk	Bloemhof	Hillesluis	Katendrecht	Afrikaanderwijk	Kop van Zuid	Kop van Zuid-Entrepot
 Ijsselmonde	Oud-IJsselmonde	Lombardijen	Groot-IJsselmonde	Groenenhagen-Tuinenhoven	Hordijkerveld	Kreekhuizen	Reyeroord	Sportdorp	De Veranda	Zomerland	Beverwaard
-Pernis
-Hoogvliet	Oudeland	Nieuw Engeland	Tussenwater	Westpunt	Middengebied	Meeuwenplaat	Zalmplaat	Boomgaardshoek
+Hoogvliet/Pernis	Hoogvliet-Zuid	Hoogvliet-Noord	Oudeland	Nieuw Engeland	Tussenwater	Westpunt	Middengebied	Meeuwenplaat	Zalmplaat	Boomgaardshoek	Pernis
 Charlois	Tarwewijk	Carnisse	Zuidwijk	Oud-Charlois	Wielewaal	Zuidplein	Pendrecht	Zuiderpark	Heijplaat

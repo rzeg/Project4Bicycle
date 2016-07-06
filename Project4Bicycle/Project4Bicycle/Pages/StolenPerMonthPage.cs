@@ -22,7 +22,7 @@ namespace Project4Bicycle
         }
 
         SfChart chart = new SfChart();
-        public ObservableCollection<ChartDataPoint> HighTemperature { get; set; }
+        public ObservableCollection<ChartDataPoint> ChartData { get; set; }
         public List<string> incidentMonthList { get; set; }
         public string[] months { get; set; }
         public int[] monthThefts { get; set; }
@@ -40,18 +40,11 @@ namespace Project4Bicycle
             incidentMonthList.AddRange(months);
 
             int cnt = 0;
-
-
-
             while (!reader.EndOfStream && cnt <= 20500)
             {
                 try
                 {
                     cnt++;
-                    if(cnt == 10351)
-                    {
-
-                    }
                     var line = reader.ReadLine();
                     string[] values = new string[] { };
                     string[] tempIncidentDate = { };
@@ -90,16 +83,10 @@ namespace Project4Bicycle
                         }
 
                         //Find the corresponding month and add the amount to this month
-
-                        int randomDiefstallen = 10;
                         foreach (string month in incidentMonthList)
                         {
                             if (month == UpperFirst(incidentMonth))
                             {
-                                if(incidentMonth == "dec")
-                                {
-
-                                }
                                 //HighTemperature.Add(new ChartDataPoint(month, randomDiefstallen++));
                                 int index = Array.IndexOf(months, month);
                                 monthThefts[index]++; //Add 1 incident to the corresponding month
@@ -130,12 +117,12 @@ namespace Project4Bicycle
             foreach (string month in months)
             {
                 int index = Array.IndexOf(months, month);
-                HighTemperature.Add(new ChartDataPoint(month, monthThefts[index]));
+                ChartData.Add(new ChartDataPoint(month, monthThefts[index]));
             }
 
             LineSeries lineSeries = new LineSeries()
             {
-                ItemsSource = HighTemperature,
+                ItemsSource = ChartData,
                 XBindingPath = "Year",
                 YBindingPath = "Value"
             };
@@ -154,7 +141,7 @@ namespace Project4Bicycle
 
         public StolenPerMonthPage()
         {
-            HighTemperature = new ObservableCollection<ChartDataPoint>();
+            ChartData = new ObservableCollection<ChartDataPoint>();
             incidentMonthList = new List<string>();
             months = new string[] { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "  "};
             monthThefts = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
