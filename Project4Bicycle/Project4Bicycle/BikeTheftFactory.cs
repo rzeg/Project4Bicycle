@@ -53,7 +53,12 @@ namespace Project4Bicycle
 			bikeTheft.Id = values[0];
 			bikeTheft.Description = values[4];
 			bikeTheft.City = values[7];
-			bikeTheft.Neighbourhood = values[8];
+			if (values[8].Length > 3)
+				bikeTheft.Neighbourhood = values[8].Substring(3);
+			else
+				bikeTheft.Neighbourhood = values[8];
+
+
 			bikeTheft.Street = values[9];
 
             if (values[11] != "")

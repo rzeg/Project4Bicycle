@@ -1,4 +1,5 @@
-﻿using Project4Bicycle.Models;
+﻿using Project4Bicycle.Data;
+using Project4Bicycle.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,46 +12,67 @@ namespace Project4Bicycle
 {
     public class Q3Generator
     {
-        List<StackedData> sData = new List<StackedData>();
         public string selectedNeighbourhood;
+        ObservableCollection<BikeContainer> containers;
+        ObservableCollection<BikeTheft> thefts;
+        BikeContainerViewModel vm;
+        BikeTheftViewModel theftVM;
+        Gemeentes gemeentes;
 
-        public Q3Generator(string Neighbourhood)
+        public Q3Generator()
         {
-            this.selectedNeighbourhood = Neighbourhood;
+            gemeentes = new Gemeentes();
         }
 
-        public async Task<Q3Model> GenerateGraphModel()
+        public void SetNeighbourhood(String neighbourhood)
         {
-            Q3Model q3model = new Q3Model();
-            BikeContainerViewModel vm = new BikeContainerViewModel();
-            BikeTheftViewModel theftVM = new BikeTheftViewModel();
+            this.selectedNeighbourhood = neighbourhood;
+        }
+
+        public async Task LoadData()
+        {
+            vm = new BikeContainerViewModel();
+            theftVM = new BikeTheftViewModel();
             await vm.GetHaltesAsync();
             await theftVM.GetBikeTheftsAsync();
-            ObservableCollection<BikeContainer> containers = vm.BikeContainers;
-            ObservableCollection<BikeTheft> thefts = theftVM.BikeThefts;
+            containers = vm.BikeContainers;
+            thefts = theftVM.BikeThefts;
+        }
 
-            for (int i = 1; i < 11; i++)
+        public List<string> GetNeighbourhoodList()
+        {
+            var neighbourhoods = gemeentes.deelGemeentes.Select(item => item.Name).ToList();
+            return neighbourhoods;
+        }
+        public Q3Model GenerateGraphModel()
+        {
+            Q3Model q3model = new Q3Model();
+            List<StackedData> sData = new List<StackedData>();
+            DeelGemeente deelgemeente = gemeentes.deelGemeentes.Single(item => item.Name == selectedNeighbourhood);
+
+            for (int i = 1; i < 13; i++)
             {
-                if(containers.Any(item => item.Neighbourhood.Contains(selectedNeighbourhood) && item.Neighbourhood.Contains(selectedNeighbourhood)))
+                StackedData data = new StackedData();
+                var monthC = containers.Where(item => item.Month == i).Where(item => item.Neighbourhood == deelgemeente.Name);
+                var monthT = thefts.Where(item => item.Month == i);
+                foreach (var theft in monthT)
                 {
-                    StackedData data = new StackedData();
-                    var monthC = containers.Where(item => item.Month == i);
-                    var monthT = thefts.Where(item => item.Month == i);
-                    foreach (var container in monthC)
-                    {
-                        data.AddContainer(container);
-                    }
-
-                    foreach (var theft in monthT)
+                    if(deelgemeente.GetWijken().Any(item => item.StartsWith(theft.Neighbourhood.Remove(0,3), StringComparison.CurrentCultureIgnoreCase)))
                     {
                         data.AddBikeThefts(theft);
                     }
-                    data.Month = i;
-                    sData.Add(data);
                 }
-                
-            }
 
+                foreach (var container in monthC)
+                {
+                    data.AddContainer(container);
+                }                
+              
+                data.Month = new DateTime(2010, i, 1).ToString("MMM");
+                sData.Add(data);
+
+            }
+            
             foreach(StackedData d in sData)
             {
                 q3model.AddData(d);

@@ -18,11 +18,12 @@ namespace Project4Bicycle
 		Label locationLabel;
 		DatePicker datePicker;
 		TimePicker timePicker;
-		string position;
+		Position position;
+		//string position;
+		Geocoder geoCoder;
 
 		public ShareLocationPage()
 		{
-			
 			Button button = new Button
 			{
 				Text = "Get Location!",
@@ -75,12 +76,6 @@ namespace Project4Bicycle
 				VerticalOptions = LayoutOptions.CenterAndExpand
 			};
 
-			//foreach (string colorName in nameToColor.Keys)
-			//{
-			//	picker.Items.Add(colorName);
-			//}
-
-
 			Content = new StackLayout
 			{
 				Children = {
@@ -98,28 +93,42 @@ namespace Project4Bicycle
 
 		async void OnButtonClicked(object sender, EventArgs e)
 		{
-			
-			//position = "213156785432";
-
-
-			//#if __ANDROID__
+			geoCoder = new Geocoder();
 
 			var locator1 = CrossGeolocator.Current;
-			var position1 = await locator1.GetPositionAsync(timeoutMilliseconds: 10000);
-			position = "Position Latitude: "+position1.Latitude+" Position Longitude: "+position1.Latitude;
+            if(!locator1.IsGeolocationEnabled)
+            {
+                //GPS is unavailable
+                await DisplayAlert("No GPS", "We could not retrieve your location, please make sure you have GPS enabled.", "OK");
+            }
+            else
+            {
+                //Retrieve GPS coordinates
+                var pos = await locator1.GetPositionAsync(timeoutMilliseconds: 15000);
+                if(pos.Longitude != null || pos.Latitude != null)
+                {
+                    position = new Position(pos.Latitude, pos.Longitude);
 
-			//#endif
-
-			locationLabel.Text = position;
-
+                    //Get addresses makes the app crash, needs to be fixed.
+                    //var possibleAddresses = await geoCoder.GetAddressesForPositionAsync(position);
+                    //foreach (var address in possibleAddresses)
+                    //    Debug.WriteLine(address);
+                }
+                else
+                {
+                    //GPS is unavailable
+                    await DisplayAlert("Time-out", "We could not retrieve your location on-time, please try again.", "OK");
+                }
+                
+            }
 		}
-
 
 		void OnCalendarButtonClicked(object sender, EventArgs e)
 		{
 			ICalendar calendar = DependencyService.Get<ICalendar>();
 
 			calendar.SetEvent(datePicker.Date + timePicker.Time, "Fiets ophalen", "Locatie van fiets: " + position);
+			Debug.WriteLine("Fiets ophalen", "Locatie van fiets: " + position);
 			Debug.WriteLine("set event");
 		}
 
@@ -130,7 +139,8 @@ namespace Project4Bicycle
 			datePicker.Date = datePicker.Date + timePicker.Time;
 
 			calendar.SetReminder(position + " at Time:  " + (datePicker.Date + timePicker.Time).ToString());
-			Debug.WriteLine("set reminder");
+			Debug.WriteLine(position + " at Time:  " + (datePicker.Date + timePicker.Time).ToString());
+			//Debug.WriteLine("set reminder");
 		}
 	}
 }
