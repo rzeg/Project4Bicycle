@@ -8,6 +8,7 @@ using System.IO;
 using System.Net;
 using Xamarin.Forms.Maps;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Project4Bicycle
 {
@@ -24,10 +25,9 @@ namespace Project4Bicycle
 
 		public async Task GetBikeTheftsAsync()
 		{
-			string requestUri = "http://www.rotterdamopendata.nl/storage/f/2014-01-30T11:49:23.696Z/fietsdiefstal-rotterdam-2011-2013.csv";
-			var client = new HttpClient();
-			var responseStream = await client.GetStreamAsync(requestUri);
-			var reader = new StreamReader(responseStream);
+            var assembly = typeof(BikeTheftViewModel).GetTypeInfo().Assembly;
+            Stream stream = assembly.GetManifestResourceStream("Project4Bicycle.Data.b59c159338.csv");
+			var reader = new StreamReader(stream);
 
 			BikeTheftFactory factory = new BikeTheftFactory(reader);
 			BikeTheft bikeTheft;
