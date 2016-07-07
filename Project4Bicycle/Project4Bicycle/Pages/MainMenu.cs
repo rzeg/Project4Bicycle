@@ -20,6 +20,7 @@ namespace Project4Bicycle
             GroupedChartPage GCP;
             MapPage MP;
 			LocationPage LP;
+            BicycleLocationPage BLP;
 
             COP = new ContainerOverviewPage();
             COP.Title = "Top 5 amount of bicycle containers";

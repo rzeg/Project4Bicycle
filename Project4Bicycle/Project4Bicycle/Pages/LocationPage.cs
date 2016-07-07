@@ -12,8 +12,7 @@ namespace Project4Bicycle
 			SLP.Title = "Share my location";
 
 			var bicycleLocationPage = new BicycleLocationPage();
-			bicycleLocationPage.Title = "Location of ur bike";
-
+			bicycleLocationPage.Title = "Location of your bike";
 
 			Children.Add(SLP);
 			Children.Add(bicycleLocationPage);

@@ -103,7 +103,6 @@ namespace Project4Bicycle
       Content = new StackLayout
       {
         Children = {
-          new Label { Text = "Hello ContentPage" },
           button,
           calendarButton,
           reminderButton,
