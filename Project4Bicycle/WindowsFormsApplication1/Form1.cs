@@ -144,6 +144,8 @@ namespace WindowsFormsApplication1
                 theftContainer.Add(bikeTheft);
             }
 
+            theftContainer = theftContainer.Where(theft => theft.Object == "FIETS").Where(theft => theft.City == "ROTTERDAM").ToList();
+
             int max2004 = theftContainer.Where(theft => theft.Year == 2004).Count();
             int max2005 = theftContainer.Where(theft => theft.Year == 2005).Count();
             int max2006 = theftContainer.Where(theft => theft.Year == 2006).Count();
