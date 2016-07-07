@@ -97,6 +97,11 @@ namespace Project4Bicycle.iOS
 			return NSDate.FromTimeIntervalSinceReferenceDate(
 				(date - reference).TotalSeconds);
 		}
+
+		public string getReminder()
+		{
+			return ("No");
+		}
 	}
 }
 

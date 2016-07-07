@@ -194,6 +194,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CalendarAPI.cs" />
     <Compile Include="SplashScreenActivity.cs" />
+    <Compile Include="CustomMapRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

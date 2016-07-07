@@ -85,7 +85,6 @@ namespace Project4Bicycle
                 //Maan genereren
                 data.Month = new DateTime(2010, i, 1).ToString("MMM");
                 sData.Add(data);
-
             }
             
             //De uiteindelijke data toevoegen aan het model voor de grafiek

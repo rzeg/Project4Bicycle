@@ -72,6 +72,9 @@
     <Compile Include="NeighbourhoodTheftsGenerator.cs" />
     <Compile Include="BikeTheftNeighbourhoodsModel.cs" />
     <Compile Include="NeighbourhoodTheft.cs" />
+    <Compile Include="BikeContainerFactory.cs" />
+    <Compile Include="Pages\LocationPage.cs" />
+    <Compile Include="Pages\BicycleLocationPage.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Mono.Android">

@@ -14,6 +14,7 @@ namespace Project4Bicycle
 		public double Latitude { get; set; }
 		public double Longitude { get; set; }
         public int Month { get; internal set; }
+		public int Distance { get; set; }
     }
 }
 
